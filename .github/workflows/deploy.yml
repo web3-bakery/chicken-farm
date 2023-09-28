@@ -1,4 +1,6 @@
 name: Deployment
+env:
+  BASE_PATH: "/chicken-farm"
 on:
   push:
     branches:
