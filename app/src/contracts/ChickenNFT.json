@@ -143,19 +143,6 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "checkAlive",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "name": "createChicken",
       "outputs": [],
@@ -501,5 +488,5 @@
       "type": "function"
     }
   ],
-  "address": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9"
+  "address": "0x6e41a08DcA67c5E321d1D5A15De2cfE2Fe2C3A04"
 }
