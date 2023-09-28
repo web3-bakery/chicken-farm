@@ -32,13 +32,9 @@ export default function Home() {
               every egg is a golden opportunity.
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Link
-                target="_blank"
-                href="https://evm-toolkit.evm.testnet.shimmer.network/"
-              >
+              <Link href="/game">
                 <Button
                   sx={{ height: 40, mt: 2 }}
-                  href="/game"
                   color="secondary"
                   variant="contained"
                 >
@@ -104,14 +100,11 @@ export default function Home() {
             </List>
 
             <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Button
-                href="/game"
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                🚀 Embark on Your Eggspedition!
-              </Button>
+              <Link href="/game">
+                <Button variant="contained" color="primary" size="large">
+                  🚀 Embark on Your Eggspedition!
+                </Button>
+              </Link>
             </Box>
 
             <Typography variant="h4" gutterBottom>
@@ -186,13 +179,9 @@ export default function Home() {
                   cracking journey like no other. Will you become the ultimate
                   eggplorer? Only one way to find out. Dive in now!
                 </Typography>
-                <Link
-                  target="_blank"
-                  href="https://evm-toolkit.evm.testnet.shimmer.network/"
-                >
+                <Link href="/game">
                   <Button
                     sx={{ height: 40, mt: 2 }}
-                    href="/game"
                     color="secondary"
                     variant="contained"
                   >
@@ -204,7 +193,7 @@ export default function Home() {
           </Box>
           <Typography variant="body2" align="center" gutterBottom>
             Got queries or need a map for your Eggspedition? Check our{" "}
-            <Link href="#">FAQ cove</Link>.
+            <Link href="/info">FAQ cove</Link>.
           </Typography>
         </Container>
       </Base>
