@@ -58,61 +58,74 @@ export default function Game() {
       </Head>
       <Base>
         <Container maxWidth="md">
-          <Typography variant="h1">Your Eggspedition! </Typography>
-          <Typography variant="h5" gutterBottom>
-            Dive into the eggciting multiverse, where chickens reign supreme and
-            treasures await.
-          </Typography>
+          {!active ? (
+            <>
+              <Typography variant="h3" gutterBottom>
+                Welcome new farmer!
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                Please connect your wallet to continue.
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography variant="h1">Your Eggspedition! </Typography>
+              <Typography variant="h5" gutterBottom>
+                Dive into the eggciting multiverse, where chickens reign supreme
+                and treasures await.
+              </Typography>
 
-          <Tooltip title="This is the total amount of eggs in the Eggspedition universe!">
-            <Box
-              sx={{
-                bgcolor: "primary",
-                borderRadius: 2,
-                boxShadow: 1,
-                overflow: "hidden",
-                my: 4,
-                position: "relative",
-                p: 2,
-              }}
-            >
-              🥚 Total Eggs in the Universe: <strong>{tokenSupply}</strong>
-            </Box>
-          </Tooltip>
+              <Tooltip title="This is the total amount of eggs in the Eggspedition universe!">
+                <Box
+                  sx={{
+                    bgcolor: "primary",
+                    borderRadius: 2,
+                    boxShadow: 1,
+                    overflow: "hidden",
+                    my: 4,
+                    position: "relative",
+                    p: 2,
+                  }}
+                >
+                  🥚 Total Eggs in the Universe: <strong>{tokenSupply}</strong>
+                </Box>
+              </Tooltip>
 
-          <Typography variant="h6" gutterBottom>
-            Ready for a new chicken companion?
-          </Typography>
-          <Box
-            sx={{
-              bgcolor: "primary",
-              borderRadius: 2,
-              boxShadow: 1,
-              overflow: "hidden",
-              my: 4,
-              position: "relative",
-              p: 2,
-            }}
-          >
-            <MintChicken />
-          </Box>
+              <Typography variant="h6" gutterBottom>
+                Ready for a new chicken companion?
+              </Typography>
+              <Box
+                sx={{
+                  bgcolor: "primary",
+                  borderRadius: 2,
+                  boxShadow: 1,
+                  overflow: "hidden",
+                  my: 4,
+                  position: "relative",
+                  p: 2,
+                }}
+              >
+                <MintChicken />
+              </Box>
 
-          <Typography variant="h6" gutterBottom>
-            Your Eggspeditioner Chickens:
-          </Typography>
-          <Box
-            sx={{
-              bgcolor: "primary",
-              borderRadius: 2,
-              boxShadow: 1,
-              overflow: "hidden",
-              my: 4,
-              position: "relative",
-              p: 2,
-            }}
-          >
-            <ChickenList />
-          </Box>
+              <Typography variant="h6" gutterBottom>
+                Your Eggspeditioner Chickens:
+              </Typography>
+              <Box
+                sx={{
+                  bgcolor: "primary",
+                  borderRadius: 2,
+                  boxShadow: 1,
+                  overflow: "hidden",
+                  my: 4,
+                  position: "relative",
+                  p: 2,
+                }}
+              >
+                <ChickenList />
+              </Box>
+            </>
+          )}
         </Container>
       </Base>
     </>
