@@ -20,7 +20,9 @@ jobs:
       - name: Install Packages
         run: cd app && yarn install
       - name: Logs
-        run: printenv BASE_PATH
+        shell: bash
+        run: |
+          echo "BASE_PATH: $BASE_PATH"
       - name: Build page
         run: cd app && yarn prepare-deploy
       - name: Deploy to gh-pages
