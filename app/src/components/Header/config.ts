@@ -4,9 +4,13 @@ export const Home = {
 };
 
 
-export const Game = {
-  label: "Game",
-  href: "/game",
+export const Farm = {
+  label: "Farm",
+  href: "/farm",
+};
+export const Battle = {
+  label: "Battle",
+  href: "/battle",
 };
 export const Info = {
   label: "Info",
@@ -19,6 +23,6 @@ export const Profile = {
   href: "/profile",
 };
 
-export const MENU = [Home, Game, Info];
+export const MENU = [Home, Farm, Battle, Info];
 
 export const MOBILE_MENU = [...MENU, Profile];

@@ -32,7 +32,7 @@ export default function Home() {
               every egg is a golden opportunity.
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Link href="game">
+              <Link href="farm">
                 <Button
                   sx={{ height: 40, mt: 2 }}
                   color="secondary"
@@ -100,7 +100,7 @@ export default function Home() {
             </List>
 
             <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Link href="game">
+              <Link href="farm">
                 <Button variant="contained" color="primary" size="large">
                   🚀 Embark on Your Eggspedition!
                 </Button>
@@ -179,7 +179,7 @@ export default function Home() {
                   cracking journey like no other. Will you become the ultimate
                   eggplorer? Only one way to find out. Dive in now!
                 </Typography>
-                <Link href="game">
+                <Link href="farm">
                   <Button
                     sx={{ height: 40, mt: 2 }}
                     color="secondary"

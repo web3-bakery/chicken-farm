@@ -6,15 +6,13 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const TOKEN = await ethers.getContractFactory("EGGS");
+  const TOKEN = await ethers.getContractFactory("ChickenNFT");
 
-  let token = await TOKEN.attach("0x957CDcD861b4FaF0664396D1B3827Ab1fA0F0A60");
+  let token = await TOKEN.attach("0x5FC8d32690cc91D4c39d9d3abcBD16989F875707");
 
-  let token_amount = ethers.parseEther("5");
 
-  let res = await token.mint(
-    "0x8719c0e3E5f950ae9b305feD9B2B2f830C127958",
-    token_amount
+  let res = await token.transferEggsOwnership(
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
   );
 
   console.log("res");

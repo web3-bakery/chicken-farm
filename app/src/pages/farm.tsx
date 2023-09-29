@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import {
-  Box,
-  Button,
-  Container,
-  Link,
-  List,
-  ListItem,
-  Typography,
-  Tooltip,
-} from "@mui/material";
+import { Box, Container, Typography, Tooltip } from "@mui/material";
 import Base from "../layouts/Base";
-import { GAMES } from "../mocks/games";
-import GameCard from "../components/GameCard";
 import MintChicken from "../components/MintChicken";
 import ChickenList from "../components/ChickenList";
 
@@ -20,8 +9,9 @@ import EGGS_CONTRACT from "../contracts/EGGS.json";
 
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
+import Link from "next/link";
 
-export default function Game() {
+export default function Farm() {
   const { active, account, library } = useWeb3React();
 
   const [tokenSupply, setTokenSupply] = useState<string | null>(null);
@@ -106,6 +96,10 @@ export default function Game() {
                 }}
               >
                 <MintChicken />
+                <Typography variant="body2" align="center" gutterBottom>
+                  You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions? Check our{" "}
+                  <Link href="info">FAQ cove</Link>.
+                </Typography>
               </Box>
 
               <Typography variant="h6" gutterBottom>

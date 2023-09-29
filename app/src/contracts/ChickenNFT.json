@@ -67,6 +67,25 @@
         {
           "indexed": true,
           "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
           "name": "from",
           "type": "address"
         },
@@ -85,6 +104,25 @@
       ],
       "name": "Transfer",
       "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "aliveChickens",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "inputs": [
@@ -131,12 +169,47 @@
           "type": "uint256"
         }
       ],
-      "name": "birthTime",
+      "name": "chickens",
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "attackPower",
           "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "defensePower",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "intelligencePoints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "speed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "birthTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nextEggMintedTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "level",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isDead",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -151,6 +224,19 @@
     },
     {
       "inputs": [],
+      "name": "eggMintLockTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "eggsToken",
       "outputs": [
         {
@@ -160,6 +246,19 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "myTokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "fight",
+      "outputs": [],
+      "stateMutability": "payable",
       "type": "function"
     },
     {
@@ -184,6 +283,73 @@
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getChickenDetails",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "attackPower",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "defensePower",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "intelligencePoints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "speed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "level",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nextEggMintedTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "birthTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isDead",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "hatchEgg",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "owner",
           "type": "address"
@@ -200,44 +366,6 @@
           "internalType": "bool",
           "name": "",
           "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "isDead",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "lastEggMintedTime",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -270,6 +398,19 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -286,6 +427,13 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -468,6 +616,19 @@
       "inputs": [
         {
           "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferEggsOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
           "name": "from",
           "type": "address"
         },
@@ -486,7 +647,20 @@
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  "address": "0x6e41a08DcA67c5E321d1D5A15De2cfE2Fe2C3A04"
+  "address": "0xF2275fCB96b18B3fDe58F01ea5C1C9021E80F314"
 }

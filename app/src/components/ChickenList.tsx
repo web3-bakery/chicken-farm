@@ -6,6 +6,8 @@ import utils from "../utils";
 import moment from "moment";
 import "moment-duration-format";
 
+import EggHatcher from "./EggHatcher";
+import EggMinter from "./EggMinter";
 import NftContract from "../contracts/ChickenNFT.json";
 
 const Chicken = ({ chicken, onMintEgg, isLoading }: any) => {
@@ -27,42 +29,31 @@ const Chicken = ({ chicken, onMintEgg, isLoading }: any) => {
       ) : (
         <Typography>💀 Dead</Typography>
       )}
-      <Button
-        variant="contained"
-        startIcon={
-          isLoading ? (
-            <CircularProgress size={24} />
-          ) : (
-            <Typography>🥚</Typography>
-          )
-        }
-        onClick={onMintEgg}
-        disabled={!chicken.isAlive || isLoading}
-      >
-        {chicken.isAlive
-          ? isLoading
-            ? "Minting..."
-            : "Mint Egg"
-          : "Chicken is Dead"}
-      </Button>
-      {moment(chicken.nextMintTime).diff(moment().unix()) > 0 ? (
+      {moment(chicken.nextEggMintedTime).diff(moment().unix()) > 0 ? (
         <Typography>
-          Next mint in:{" "}
+          Next action in:{" "}
           {moment
-            .duration(moment(chicken.nextMintTime).diff(moment().unix()) * 1000)
+            .duration(
+              moment(chicken.nextEggMintedTime).diff(moment().unix()) * 1000
+            )
             .format("h [hrs], m [min], s [secs]")}
         </Typography>
       ) : (
-        <Typography>
-          {chicken.isAlive ? "You can mint an egg now!" : ""}
-        </Typography>
+        <Typography>Your chicken is ready for egg-tion!</Typography>
       )}
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <EggMinter
+          chicken={chicken}
+          onMintEgg={onMintEgg}
+          isLoading={isLoading}
+        />
+        <EggHatcher chicken={chicken} isLoading={isLoading} />
+      </Box>
     </Box>
   );
 };
 
 const ChickenList = () => {
-  const MINT_INTERVAL = 60;
   const { active, account, library } = useWeb3React();
   const [message, setMessage] = useState("");
   const [nfts, setNfts] = useState<any[]>([]);
@@ -70,7 +61,7 @@ const ChickenList = () => {
   const [tokensToUpdate, setTokensToUpdate] = useState<number[]>([]);
 
   useEffect(() => {
-    if(!account) return;
+    if (!account) return;
     const interval = setInterval(() => {
       if (tokensToUpdate.length > 0) {
         tokensToUpdate.forEach((tokenId) => {
@@ -109,15 +100,16 @@ const ChickenList = () => {
     );
     const updatedNfts = await Promise.all(
       _nfts.map(async (nft: any) => {
-        const isDead = await nftContract.isDead(nft.tokenId);
-        const lastEggMintedTime = await nftContract.lastEggMintedTime(
-          nft.tokenId
-        );
+        const chicken = await nftContract.getChickenDetails(nft.tokenId);
+        console.log("chicken", chicken);
+        // const isDead = await nftContract.isDead(nft.tokenId);
+        // const lastEggMintedTime = await nftContract.lastEggMintedTime(
+        //   nft.tokenId
+        // );
         return {
           ...nft,
-          isAlive: !isDead,
-          lastEggMintedTime: Number(lastEggMintedTime),
-          nextMintTime: nft.lastEggMintedTime + MINT_INTERVAL,
+          isAlive: !chicken.isDead,
+          nextEggMintedTime: Number(chicken.nextEggMintedTime),
         };
       })
     );
@@ -132,43 +124,60 @@ const ChickenList = () => {
         NftContract.abi,
         provider.getSigner()
       );
-      await nftContract.mintEgg(tokenId, { gasLimit: 5000000 });
+      let res = await nftContract.mintEgg(tokenId, { gasLimit: 5000000 });
+      await res.wait();
       setMessage(`🎉 Successfully minted 1 EGG!`);
       if (!tokensToUpdate.includes(tokenId)) {
         setTokensToUpdate((prev) => [...prev, tokenId]);
       }
     } catch (error: any) {
-      setMessage(`⚠️ ${error.message}`);
+      console.log(error);
+      setMessage(extractErrorMessage(error.message));
     }
   };
 
+  function extractErrorMessage(log: string) {
+    const errorMsgPrefix = "reverted with reason string '";
+    const errorMsgSuffix = "'";
+
+    if (log.includes(errorMsgPrefix)) {
+      const start = log.indexOf(errorMsgPrefix) + errorMsgPrefix.length;
+      const end = log.indexOf(errorMsgSuffix, start);
+      return log.substring(start, end);
+    }
+    return "null"; // Return null or some default value if no error message is found
+  }
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: 2,
-        mt: 2,
-        mb: 4,
-        alignItems: "center",
-        justifyContent:
-          account && nfts && nfts.length > 0 ? "flex-start" : "center",
-      }}
-    >
+    <Box>
       {message && <Typography variant="body1">{message}</Typography>}
-      {account && nfts && nfts.length > 0 ? (
-        nfts.map((chicken) => (
-          <Chicken
-            key={chicken.tokenId}
-            chicken={chicken}
-            onMintEgg={() => handleMintEgg(chicken.tokenId)}
-          />
-        ))
-      ) : (
-        <Typography variant="h6" color="textSecondary">
-          🥺 You have no chickens.
-        </Typography>
-      )}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2,
+          mt: 2,
+          mb: 4,
+          alignItems: "center",
+          justifyContent:
+            account && nfts && nfts.length > 0 ? "flex-start" : "center",
+        }}
+      >
+        <br />
+        {account && nfts && nfts.length > 0 ? (
+          nfts.map((chicken) => (
+            <Chicken
+              key={chicken.tokenId}
+              chicken={chicken}
+              onMintEgg={() => handleMintEgg(chicken.tokenId)}
+            />
+          ))
+        ) : (
+          <Typography variant="h6" color="textSecondary">
+            🥺 You have no chickens.
+          </Typography>
+        )}
+      </Box>
     </Box>
   );
 };
