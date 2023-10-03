@@ -18,7 +18,6 @@ const EggMinter = ({ chicken, onMintEgg, isLoading }: any) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { active, account, library } = useWeb3React();
 
   return (
     <Box

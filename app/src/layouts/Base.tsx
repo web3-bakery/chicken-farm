@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { Box, CssBaseline } from "@mui/material";
 
 import { Header } from "../components/Header";
-import { Network } from "../components/Network";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -24,7 +23,6 @@ const Base: React.FC<Props> = ({ children, hero }) => {
         <Header />
         {hero}
         {children}
-        <Network />
       </Box>
     </main>
   );

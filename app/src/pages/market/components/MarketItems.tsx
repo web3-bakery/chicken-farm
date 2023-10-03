@@ -4,21 +4,18 @@ import { ethers } from "ethers";
 import NFTMarketABI from "../../../contracts/NFTMarket.json";
 
 import {ADDRESSES} from "../../../contracts/addresses";
-import { useWeb3React } from "@web3-react/core";
 
-function MarketItems() {
+function MarketItems({ provider, account }: any) {
   const [marketItems, setMarketItems] = useState([]);
-  const { account, library } = useWeb3React();
 
   useEffect(() => {
-    if (library) {
+    if (account) {
       fetchMarketItems().then(setMarketItems);
     }
-  }, [library]);
+  }, [account]);
   
   const fetchMarketItems = async () => {
     console.log("fetchMarketItems");
-    const provider = new ethers.providers.Web3Provider(library.provider);
     const signer = provider.getSigner();
     const nftMarketContract = new ethers.Contract(
       ADDRESSES.nftMarketAddr,
@@ -35,7 +32,6 @@ function MarketItems() {
   };
 
   const buyItem = async (nftContract: any, itemId: any, price: any) => {
-    const provider = new ethers.providers.Web3Provider(library.provider);
     const nftMarketContract = new ethers.Contract(
       ADDRESSES.nftMarketAddr,
       NFTMarketABI.abi,

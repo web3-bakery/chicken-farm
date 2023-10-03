@@ -10,36 +10,33 @@ import NFTMarketABI from "../../contracts/NFTMarket.json";
 
 import { ADDRESSES } from "../../contracts/addresses";
 
-import useSoonabots from "../../hooks/contracts/useSoonabots";
-import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
-import Hero from "../../components/Hero";
+import Hero from "../../components/old/Hero";
 import Base from "../../layouts/Base";
 import { GAMES } from "../../mocks/games";
 
 declare var window: any;
 declare var ethereum: any;
-const Market = () => {
-  const { account, library } = useWeb3React();
+const Market = ({provider, account}: any) => {
 
   const [nfts, setNfts] = useState([]);
-  const { data, isFetched, error, refetch } = useSoonabots(
-    account || "",
-    ADDRESSES.soonabotsAddr
-  );
+
+  // TODO: Load all the NFTs from the contract
+  const data: any = []
+
   useEffect(() => {}, []);
 
   useEffect(() => {
-    if (library && account) {
+    if (account) {
     }
-  }, [library, account]);
+  }, [account]);
 
   const createMarketItem = async (
     nftContractAddress: string,
     tokenId: number,
     price: any
   ) => {
-    const provider = new ethers.providers.Web3Provider(library.provider);
+    if (!provider) return;
     const signer = provider.getSigner();
 
     const nftMarketContract = new ethers.Contract(
@@ -93,8 +90,8 @@ const Market = () => {
       </Head>
       <Base hero={<Hero image={GAMES[0].image} />}>
         
-        {library && account && <SellProduct nfts={data} createMarketItem={createMarketItem} />}
-        {library && account && <MarketItems />}
+        {account && <SellProduct nfts={data} createMarketItem={createMarketItem} />}
+        {account && <MarketItems />}
       </Base>
     </>
   );

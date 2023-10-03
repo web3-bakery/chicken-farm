@@ -5,11 +5,27 @@ import { useWeb3React } from "@web3-react/core";
 
 import { Container, Typography } from "@mui/material";
 import Base from "../layouts/Base";
-import { PoolShares } from "../components/PoolShares";
-import ConnectSection from "../components/ConnectSection";
+
+import MetaMaskCard from "../components/web3/connectorCards/MetaMaskCard";
+import NetworkCard from "../components/web3/connectorCards/NetworkCard";
+
+import { hooks, metaMask } from "../components/web3/connectors/metaMask";
+
+const {
+  useChainId,
+  useAccounts,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks;
 
 export default function Profile() {
-  const { library, account } = useWeb3React();
+  const accounts = useAccounts();
+
+  console.log("accounts", accounts);
+  const isActive = useIsActive();
+  console.log("isActive", isActive);
 
   return (
     <>
@@ -24,12 +40,20 @@ export default function Profile() {
           <Typography variant="h1" gutterBottom>
             Profile
           </Typography>
-          {account ? (
+          <Typography variant="h3" gutterBottom>
+            Network Settings
+          </Typography>
 
-            <>
-              <h1>Profile</h1>
-            </>
-          ) : <ConnectSection />}
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "wrap",
+              fontFamily: "sans-serif",
+            }}
+          >
+            <MetaMaskCard />
+            <NetworkCard />
+          </div>
         </Container>
       </Base>
     </>

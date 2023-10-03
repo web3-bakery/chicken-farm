@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
 import { Box, Typography, Button, CircularProgress, Alert } from "@mui/material";
 
 import NftContract from "../contracts/ChickenNFT.json";
 import EGGSContract from "../contracts/EGGS.json";
 
-const MintChicken = () => {
+const MintChicken = ({provider, account}: any) => {
   const [nftContract, setNftContract] = useState<any>(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { account, library } = useWeb3React();
 
   useEffect(() => {
-    if (library && account) {
-      const provider = new ethers.providers.Web3Provider(library.provider);
+    if (account) {
       const signer = provider.getSigner();
       const _nftContract = new ethers.Contract(
         NftContract.address,
@@ -25,12 +22,11 @@ const MintChicken = () => {
 
       setNftContract(_nftContract);
     }
-  }, [library, account]);
+  }, [  account]);
 
   const mintNFT = async () => {
     setLoading(true);
     try {
-      const provider = new ethers.providers.Web3Provider(library.provider);
       const signer = provider.getSigner();
       const eggsContract = new ethers.Contract(
         EGGSContract.address,

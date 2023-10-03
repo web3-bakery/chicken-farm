@@ -28,12 +28,11 @@ const getStakedNFTs = async (
 };
 
 const loadNfts = async function (
-  library: any,
+  provider: any,
   contractAddr: any,
   account: string
 ) {
   //tokenOfOwnerByIndex
-  const provider = new ethers.providers.Web3Provider(library.provider);
   let contract_Enumerable = new ethers.Contract(
     contractAddr,
     IERC721Enumerable.abi,

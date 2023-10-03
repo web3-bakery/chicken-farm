@@ -7,18 +7,16 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Alert from "@mui/material/Alert";
-import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 
 import NftContract from "../contracts/ChickenNFT.json";
 import EGGSContract from "../contracts/EGGS.json";
 import moment from "moment";
 
-const EggHatcher = ({ chicken, isLoading }: any) => {
+const EggHatcher = ({ chicken, isLoading, provider }: any) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { active, account, library } = useWeb3React();
 
   const handleHatch = async () => {
     setLoading(true);
@@ -26,7 +24,6 @@ const EggHatcher = ({ chicken, isLoading }: any) => {
       // Replace the following with your logic:
       // Example: await contract.hatchEgg(eggId, { from: account });
 
-      const provider = new ethers.providers.Web3Provider(library.provider);
       const nftContract = new ethers.Contract(
         NftContract.address,
         NftContract.abi,

@@ -3,9 +3,20 @@ import Link from "next/link";
 
 import { useWeb3React } from "@web3-react/core";
 
-import { Box } from "@mui/material";
-import { ConnectButton } from "../../web3/ConnectButton";
+import { Box, Button } from "@mui/material";
 import ProfileImage from "./ProfileImage";
+
+import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
+import ConnectButton from "../web3/components/ConnectButton";
+
+const {
+  useChainId,
+  useAccounts,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks;
 
 interface WhitelistItem {
   id: string;
@@ -13,16 +24,13 @@ interface WhitelistItem {
 }
 
 export const IdentityMenu: React.FC = () => {
-  const { account, library } = useWeb3React<any>();
   const [bots, setBots] = React.useState<number[]>([]);
 
-  
-  React.useEffect(() => {
-    if (account) {
-      
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, library]);
+  const accounts = useAccounts();
+
+  console.log("accounts", accounts);
+
+  const account = accounts ? accounts[0] : "";
 
   const displayAddress = account 
   ? account.slice(0, 5) + "..." + account.slice(account.length - 3) 

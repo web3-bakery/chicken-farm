@@ -11,29 +11,76 @@ import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import Link from "next/link";
 
+import { hooks, metaMask } from "../components/web3/connectors/metaMask";
+
+const {
+  useChainId,
+  useAccounts,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks;
+
 export default function Farm() {
-  const { active, account, library } = useWeb3React();
+  const accounts = useAccounts();
+  const [account, setAccount] = useState("");
+  const provider = useProvider();
+
+  const isActive = useIsActive();
+  console.log("isActive", isActive);
+  useEffect(() => {
+    if (isActive && accounts && accounts.length > 0) {
+      setAccount(accounts[0]);
+      loadTotalSupply();
+    }
+  }, [isActive, accounts]);
+  useEffect(() => {
+    if (account) {
+      loadAccountBalance();
+    }
+  }, [account]);
 
   const [tokenSupply, setTokenSupply] = useState<string | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
 
-  async function loadTotalSupply() {
-    const provider = new ethers.providers.Web3Provider(library.provider);
+  async function loadAccountBalance() {
+    if (!provider) {
+      return;
+    }
 
     let token = new ethers.Contract(
       EGGS_CONTRACT.address,
       EGGS_CONTRACT.abi,
       provider
     );
-    let totalSupply = await token.totalSupply();
-    totalSupply = ethers.utils.formatEther(totalSupply);
-    setTokenSupply(totalSupply);
-  }
-
-  useEffect(() => {
-    if (account && library.provider) {
-      loadTotalSupply();
+    try {
+      let _balance = await token.balanceOf(account);
+      _balance = ethers.utils.formatEther(_balance);
+      setBalance(_balance);
+    } catch (error) {
+      console.log("error", error);
     }
-  }, [account, library]);
+  }
+  async function loadTotalSupply() {
+    if (!provider) {
+      return;
+    }
+
+    let token = new ethers.Contract(
+      EGGS_CONTRACT.address,
+      EGGS_CONTRACT.abi,
+      provider
+    );
+
+    try {
+      let totalSupply = await token.totalSupply();
+      totalSupply = ethers.utils.formatEther(totalSupply);
+      setTokenSupply(totalSupply);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 
   return (
     <>
@@ -48,7 +95,7 @@ export default function Farm() {
       </Head>
       <Base>
         <Container maxWidth="md">
-          {!active ? (
+          {!isActive ? (
             <>
               <Typography variant="h3" gutterBottom>
                 Welcome new farmer!
@@ -80,6 +127,21 @@ export default function Farm() {
                   🥚 Total Eggs in the Universe: <strong>{tokenSupply}</strong>
                 </Box>
               </Tooltip>
+              <Tooltip title="This is your amount of eggs!">
+                <Box
+                  sx={{
+                    bgcolor: "primary",
+                    borderRadius: 2,
+                    boxShadow: 1,
+                    overflow: "hidden",
+                    my: 4,
+                    position: "relative",
+                    p: 2,
+                  }}
+                >
+                  🥚 Your Eggs: <strong>{balance}</strong>
+                </Box>
+              </Tooltip>
 
               <Typography variant="h6" gutterBottom>
                 Ready for a new chicken companion?
@@ -95,10 +157,10 @@ export default function Farm() {
                   p: 2,
                 }}
               >
-                <MintChicken />
+                <MintChicken provider={provider} account={account} />
                 <Typography variant="body2" align="center" gutterBottom>
-                  You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions? Check our{" "}
-                  <Link href="info">FAQ cove</Link>.
+                  You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions?
+                  Check our <Link href="info">FAQ cove</Link>.
                 </Typography>
               </Box>
 
@@ -116,7 +178,7 @@ export default function Farm() {
                   p: 2,
                 }}
               >
-                <ChickenList />
+                <ChickenList provider={provider} account={account} />
               </Box>
             </>
           )}

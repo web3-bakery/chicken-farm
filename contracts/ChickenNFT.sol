@@ -29,6 +29,14 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
     // uint256 public eggMintLockTime = 1 days;
     uint256 public eggMintLockTime = 1 minutes;
 
+    uint256 public lastCycleTimestamp = block.timestamp;
+    mapping(address => uint256) public burnedEggsByUser;
+    address[] public burners; // Liste der Adressen, die EGGS im aktuellen Zyklus verbrannt haben
+
+    address public currentLeader;
+
+    uint256 public nextCycleTimestamp = block.timestamp + 5 minutes;
+
     constructor(address _eggsToken) ERC721("ChickenNFT", "CHICKEN") {
         eggsToken = EGGS(_eggsToken);
     }
@@ -51,58 +59,18 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
         _mint(msg.sender, tokenId);
 
         Chicken memory newChicken = Chicken({
-            attackPower: randomAttribute(),
-            defensePower: randomAttribute(),
-            intelligencePoints: randomAttribute(),
-            speed: randomAttribute(),
+            attackPower: randomAttribute(1),
+            defensePower: randomAttribute(2),
+            intelligencePoints: randomAttribute(3),
+            speed: randomAttribute(4),
             birthTime: block.timestamp,
             nextEggMintedTime: block.timestamp.add(eggMintLockTime),
-            level: 1,
+            level: 0,
             isDead: false
         });
 
         chickens[tokenId] = newChicken;
         aliveChickens.push(tokenId);
-    }
-
-    function fight(uint256 myTokenId) external payable {
-        require(msg.value == 10 ether, "Cost for a fight is 10 SMR");
-        require(
-            ownerOf(myTokenId) == msg.sender,
-            "You do not own this chicken"
-        );
-        require(!chickens[myTokenId].isDead, "Your chicken is dead");
-        require(aliveChickens.length > 1, "No opponents available.");
-
-        uint256 opponentTokenId = findRandomOpponent(myTokenId);
-
-        Chicken storage myChicken = chickens[myTokenId];
-        Chicken storage opponentChicken = chickens[opponentTokenId];
-
-        uint256 myPower = calculateTotalPower(myChicken);
-        uint256 opponentPower = calculateTotalPower(opponentChicken);
-
-        if (myPower >= opponentPower) {
-            myChicken.level += 1;
-            eggsToken.mint(msg.sender, 1 * 10 ** 18);
-        } else {
-            myChicken.isDead = true;
-            eggsToken.mint(ownerOf(opponentTokenId), 1 * 10 ** 18);
-            removeDeadChicken(myTokenId);
-        }
-    }
-
-    function calculateTotalPower(
-        Chicken memory chicken
-    ) private pure returns (uint256) {
-        uint256 powerFromAttributes = chicken
-            .attackPower
-            .add(chicken.defensePower)
-            .add(chicken.intelligencePoints)
-            .add(chicken.speed);
-        uint256 powerFromLevel = chicken.level.mul(10); // Every level adds 10 power points
-
-        return powerFromAttributes.add(powerFromLevel);
     }
 
     function mintEgg(uint256 tokenId) external {
@@ -112,7 +80,10 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
             block.timestamp > chickens[tokenId].nextEggMintedTime,
             "Chicken is not ready to lay an egg"
         );
-        chickens[tokenId].nextEggMintedTime = block.timestamp.add(eggMintLockTime);
+        chickens[tokenId].nextEggMintedTime = block.timestamp.add(
+            eggMintLockTime
+        );
+        chickens[tokenId].level = chickens[tokenId].level.add(1);
         eggsToken.mint(msg.sender, 1 * 10 ** 18);
         checkAlive(tokenId); // This function could mark the chicken as dead
     }
@@ -138,11 +109,10 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
         require(ownerOf(tokenId) == msg.sender, "You do not own this chicken");
         require(!chickens[tokenId].isDead, "Chicken has passed away");
 
-
         require(
-                    block.timestamp > chickens[tokenId].nextEggMintedTime,
-                    "Chicken is not ready to hatch an egg"
-                );
+            block.timestamp > chickens[tokenId].nextEggMintedTime,
+            "Chicken is not ready to hatch an egg"
+        );
 
         require(
             eggsToken.balanceOf(msg.sender) >= 1,
@@ -150,38 +120,26 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
         );
 
         eggsToken.burnFrom(msg.sender, 1 * 10 ** 18);
-        
+
         // Set the lastEggMintedTime to 3 days in the future
-        chickens[tokenId].nextEggMintedTime = block.timestamp + (3 * eggMintLockTime);
+        chickens[tokenId].nextEggMintedTime =
+            block.timestamp +
+            (3 * eggMintLockTime);
 
         _createChicken();
-
-
     }
 
-
-    function randomAttribute() private view returns (uint256) {
+    function randomAttribute(uint256 salt) private view returns (uint256) {
         return
             (uint256(
                 keccak256(
-                    abi.encodePacked(block.timestamp, _tokenIdCounter.current())
+                    abi.encodePacked(
+                        block.timestamp,
+                        _tokenIdCounter.current(),
+                        salt
+                    )
                 )
             ) % 10) + 1;
-    }
-
-    function findRandomOpponent(
-        uint256 myTokenId
-    ) private view returns (uint256) {
-        uint256 randomIndex;
-        do {
-            randomIndex =
-                uint256(
-                    keccak256(abi.encodePacked(block.timestamp, myTokenId))
-                ) %
-                aliveChickens.length;
-        } while (aliveChickens[randomIndex] == myTokenId);
-
-        return aliveChickens[randomIndex];
     }
 
     function removeDeadChicken(uint256 deadTokenId) private {
@@ -230,5 +188,77 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
             chicken.birthTime,
             chicken.isDead
         );
+    }
+
+    function burnEggs(uint256 amount) external {
+        require(
+            block.timestamp < nextCycleTimestamp,
+            "The cycle is closed, wait for the next one!"
+        );
+
+        require(
+            eggsToken.balanceOf(msg.sender) >= amount,
+            "Not enough EGGS to burn."
+        );
+        eggsToken.burnFrom(msg.sender, amount);
+
+        // Wenn der Benutzer zum ersten Mal EGGS verbrennt, füge ihn der burners-Liste hinzu
+        if (burnedEggsByUser[msg.sender] == 0) {
+            burners.push(msg.sender);
+        }
+        burnedEggsByUser[msg.sender] = burnedEggsByUser[msg.sender].add(amount);
+
+        if (
+            currentLeader == address(0) ||
+            burnedEggsByUser[msg.sender] > burnedEggsByUser[currentLeader]
+        ) {
+            currentLeader = msg.sender;
+        }
+    }
+
+    function startNewCycle() external {
+        require(
+            block.timestamp >= nextCycleTimestamp,
+            "Can only call this function once every 24 hours."
+        );
+
+        // Reward the leader with the golden egg
+        if (currentLeader != address(0)) {
+            // reward the leader with the golden egg
+        }
+
+        // Check all chickens and distribute rewards
+        uint256 totalAlive = aliveChickens.length;
+
+        for (uint256 i = 0; i < totalAlive; i++) {
+            uint256 tokenId = aliveChickens[i];
+            checkAlive(tokenId); // This will update the isDead status of each chicken
+        }
+
+        totalAlive = aliveChickens.length;
+        uint256 rewardPerChicken = address(this).balance.div(totalAlive + 1); // +1 to include the caller
+
+        for (uint256 i = 0; i < totalAlive; i++) {
+            uint256 tokenId = aliveChickens[i];
+            if (!chickens[tokenId].isDead) {
+                payable(ownerOf(tokenId)).transfer(rewardPerChicken);
+            }
+        }
+
+        // Reward the caller
+        payable(msg.sender).transfer(rewardPerChicken);
+
+        // Reset for next cycle
+        nextCycleTimestamp = block.timestamp + 24 hours;
+
+        for (uint256 i = 0; i < burners.length; i++) {
+            delete burnedEggsByUser[burners[i]];
+        }
+        delete burners; // setzt die burners-Liste zurück
+        currentLeader = address(0);
+    }
+
+    function totalAliveChickens() external view returns (uint256) {
+        return aliveChickens.length;
     }
 }

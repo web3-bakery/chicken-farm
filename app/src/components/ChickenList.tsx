@@ -9,8 +9,9 @@ import "moment-duration-format";
 import EggHatcher from "./EggHatcher";
 import EggMinter from "./EggMinter";
 import NftContract from "../contracts/ChickenNFT.json";
+import Link from "next/link";
 
-const Chicken = ({ chicken, onMintEgg, isLoading }: any) => {
+const Chicken = ({ chicken, onMintEgg, isLoading, provider }: any) => {
   return (
     <Box
       sx={{
@@ -22,7 +23,9 @@ const Chicken = ({ chicken, onMintEgg, isLoading }: any) => {
         boxShadow: 3,
       }}
     >
-      <Typography style={{ fontSize: 50 }}>{"🐔"}</Typography>
+      <Link href={`/chickens/${chicken.tokenId}`}>
+        <Typography style={{ fontSize: 50 }}>{"🐔"}</Typography>
+      </Link>
       <Typography>Chicken #{chicken.tokenId}</Typography>
       {chicken.isAlive ? (
         <Typography>🐔 Alive</Typography>
@@ -47,40 +50,43 @@ const Chicken = ({ chicken, onMintEgg, isLoading }: any) => {
           onMintEgg={onMintEgg}
           isLoading={isLoading}
         />
-        <EggHatcher chicken={chicken} isLoading={isLoading} />
+        <EggHatcher
+          chicken={chicken}
+          isLoading={isLoading}
+          provider={provider}
+        />
       </Box>
     </Box>
   );
 };
 
-const ChickenList = () => {
-  const { active, account, library } = useWeb3React();
+const ChickenList = ({ provider, account }: any) => {
   const [message, setMessage] = useState("");
   const [nfts, setNfts] = useState<any[]>([]);
 
   const [tokensToUpdate, setTokensToUpdate] = useState<number[]>([]);
 
-  useEffect(() => {
-    if (!account) return;
-    const interval = setInterval(() => {
-      if (tokensToUpdate.length > 0) {
-        tokensToUpdate.forEach((tokenId) => {
-          utils
-            .loadNfts(library, NftContract.address, account)
-            .then((data: any) => {
-              loadMetadata(data);
-            });
-        });
-      }
-    }, 5000); // Alle 5 Sekunden
-    return () => clearInterval(interval); // Reinige den Intervall beim Unmounting
-  }, [tokensToUpdate, library, account]);
+  // useEffect(() => {
+  //   if (!account) return;
+  //   const interval = setInterval(() => {
+  //     if (tokensToUpdate.length > 0) {
+  //       tokensToUpdate.forEach((tokenId) => {
+  //         utils
+  //           .loadNfts(library, NftContract.address, account)
+  //           .then((data: any) => {
+  //             loadMetadata(data);
+  //           });
+  //       });
+  //     }
+  //   }, 5000); // Alle 5 Sekunden
+  //   return () => clearInterval(interval); // Reinige den Intervall beim Unmounting
+  // }, [tokensToUpdate, account]);
 
   useEffect(() => {
     const loadNfts = async () => {
-      if (active && account) {
+      if (account) {
         const data = await utils.loadNfts(
-          library,
+          provider,
           NftContract.address,
           account
         );
@@ -89,10 +95,9 @@ const ChickenList = () => {
       }
     };
     loadNfts();
-  }, [active, account]);
+  }, [account]);
 
   const loadMetadata = async (_nfts: any) => {
-    const provider = new ethers.providers.Web3Provider(library.provider);
     const nftContract = new ethers.Contract(
       NftContract.address,
       NftContract.abi,
@@ -118,7 +123,6 @@ const ChickenList = () => {
 
   const handleMintEgg = async (tokenId: any) => {
     try {
-      const provider = new ethers.providers.Web3Provider(library.provider);
       const nftContract = new ethers.Contract(
         NftContract.address,
         NftContract.abi,
@@ -170,6 +174,7 @@ const ChickenList = () => {
               key={chicken.tokenId}
               chicken={chicken}
               onMintEgg={() => handleMintEgg(chicken.tokenId)}
+              provider={provider}
             />
           ))
         ) : (
