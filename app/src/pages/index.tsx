@@ -10,191 +10,133 @@ import {
 } from "@mui/material";
 import Base from "../layouts/Base";
 import Head from "next/head";
+import Call2ActionBox from "../components/Home/Call2ActionBox";
+
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Chickens and EGGS</title>
+        <title>🐔 Chicken Farm</title>
         <meta name="description" content="Play the new web3 game!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Base>
         <Container maxWidth="md">
-          <Box sx={{ padding: 3 }}>
+          <Box sx={{ padding: 4, spacing: 4 }}>
             <Typography variant="h1" align="center" gutterBottom>
-              🐔 Eggspedition! 🐔
+              🐔 Chicken Farm 🐔
             </Typography>
 
-            <Typography variant="body2" gutterBottom>
-              Welcome to the grand Eggspedition! Venture into the quirkiest coop
-              on the blockchain where each cluck is a call for adventure and
-              every egg is a golden opportunity.
-            </Typography>
-            <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Link href="farm">
-                <Button
-                  sx={{ height: 40, mt: 2 }}
-                  color="secondary"
-                  variant="contained"
-                >
-                  🐔 To the Chickens 🐔
-                </Button>
-              </Link>
-            </Box>
-            <Typography variant="h4" gutterBottom>
-              🥚 What Makes Eggspedition So Egg-citing? 🥚
+            <Typography variant="body1" gutterBottom>
+              Dive into the ultimate coop on the metaverse. Adventure awaits in
+              every EGG!
             </Typography>
 
-            <List>
-              <ListItem>
-                <Typography>
-                  🎉 <strong>Interactive Adventures</strong>: Every ChickenNFT
-                  is a story waiting to be told! See the dramas unfold and
-                  maybe, just maybe, find a golden EGG.
-                </Typography>
-              </ListItem>
-              <ListItem>
-                <Typography>
-                  💰 <strong>Golden Opportunities</strong>: Daily egg hunts lead
-                  to EGG tokens! Trade or treasure? Your call!
-                </Typography>
-              </ListItem>
-              <ListItem>
-                <Typography>
-                  🔥 <strong>Fiery Marketplace</strong>: Got a rare clucker? A
-                  bejeweled egg? The market's always hot!
-                </Typography>
-              </ListItem>
-              <ListItem>
-                <Typography>
-                  ❤️ <strong>Flock and Flourish</strong>: Our community is all
-                  heart... and a bit of feather! Join and see!
-                </Typography>
-              </ListItem>
-            </List>
-
-            <Typography variant="h4" gutterBottom>
-              🐣 Ready to Start Your Eggspedition? 🐣
-            </Typography>
-
-            <List>
-              <ListItem>
-                <Typography>
-                  <strong>Embark on an Adventure</strong>: Get your first
-                  ChickenNFT and watch the saga begin!
-                </Typography>
-              </ListItem>
-              <ListItem>
-                <Typography>
-                  <strong>Hunt for Treasures</strong>: Daily quests lead to EGG
-                  tokens. Every egg's a mystery!
-                </Typography>
-              </ListItem>
-              <ListItem>
-                <Typography>
-                  <strong>Trade or Triumph</strong>: Keep or sell? Every
-                  decision is an adventure!
-                </Typography>
-              </ListItem>
-            </List>
-
-            <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
-              <Link href="farm">
-                <Button variant="contained" color="primary" size="large">
-                  🚀 Embark on Your Eggspedition!
-                </Button>
-              </Link>
-            </Box>
-
-            <Typography variant="h4" gutterBottom>
-              🎤 Hear from our Fellow Adventurers 🎤
-            </Typography>
-
-            <Box sx={{ fontStyle: "italic", marginBottom: 2 }}>
-              <Typography variant="subtitle1">
-                "I never knew a virtual chicken could be so adventurous! Every
-                day's a new quest!"
-                <Typography variant="caption" display="block">
-                  – Jordan the Joyful
-                </Typography>
-              </Typography>
-            </Box>
-
-            <Box sx={{ fontStyle: "italic", marginBottom: 2 }}>
-              <Typography variant="subtitle1">
-                "Egg hunts, sly foxes, market trades - Eggspedition has it all!"
-                <Typography variant="caption" display="block">
-                  – Riley the Risk-taker
-                </Typography>
-              </Typography>
-            </Box>
-
-            <Typography variant="h4" gutterBottom>
-              🐥 Join the Eggspedition Crew! 🐥
-            </Typography>
-
-            <Typography variant="subtitle1" gutterBottom>
-              We've got a clucking awesome community! Share tales, get updates,
-              and partake in special quests.
-              <Link href="#">Discord</Link> | <Link href="#">Twitter</Link>
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              bgcolor: "primary.main",
-              borderRadius: 2,
-              boxShadow: 1,
-              overflow: "hidden",
-              my: 4,
-              position: "relative",
-            }}
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background:
-                  "linear-gradient(90deg, rgba(22, 22, 22, 0) 0%, rgba(22, 22, 22, 1) 100%)",
-              }}
+            <Call2ActionBox
+              title="🎉 Join the Ultimate Eggventure now! 🥚"
+              description="Hatch into the world of 'Eggspedition!' and embark on a cracking
+            journey like no other. Will you become the ultimate eggplorer? Only
+            one way to find out. Dive in now!"
+              link="farm"
+              linkText="🐔 To the Chickens 🐔"
             />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-                p: 4,
-                position: "relative",
-              }}
-            >
-              <Box sx={{ flex: 1 }}>
-                <Typography gutterBottom variant="h4">
-                  🎉 Join the Ultimate Eggventure now! 🥚
-                </Typography>
+
+            <Typography variant="h4" mt={4} gutterBottom>
+              🥚 Why Join The Eggspedition? 🥚
+            </Typography>
+
+            <List>
+              <ListItem>
                 <Typography>
-                  Hatch into the world of "Eggspedition!" and embark on a
-                  cracking journey like no other. Will you become the ultimate
-                  eggplorer? Only one way to find out. Dive in now!
+                  🎉 Unique ChickenNFT tales and crazy EGG hunts!
                 </Typography>
-                <Link href="farm">
-                  <Button
-                    sx={{ height: 40, mt: 2 }}
-                    color="secondary"
-                    variant="contained"
-                  >
-                    🐔 To the Chickens 🐔
-                  </Button>
-                </Link>
-              </Box>
+              </ListItem>
+              <ListItem>
+                <Typography>
+                  💰 Earn and trade EGG tokens. It's all in your hands!
+                </Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>🔥 Hot market for rare items!</Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>❤️ Join our vibrant community!</Typography>
+              </ListItem>
+            </List>
+
+            <Typography variant="h4" mt={4} gutterBottom>
+              🐣 Start Your Journey 🐣
+            </Typography>
+
+            <List>
+              <ListItem>
+                <Typography>
+                  Collect ChickenNFTs and unveil their stories.
+                </Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>Daily quests with mystery eggs!</Typography>
+              </ListItem>
+              <ListItem>
+                <Typography>Trade, collect, and have fun!</Typography>
+              </ListItem>
+            </List>
+
+            <Typography variant="h4" mt={4} gutterBottom>
+              🎤 Reviews from Adventurers 🎤
+            </Typography>
+
+            <Box sx={{ fontStyle: "italic", mt: 2 }}>
+              <Typography variant="subtitle1">
+                "Virtual chickens, real fun! Every day is a new quest!"
+                <Typography variant="caption" display="block">
+                  – Chick Norris
+                </Typography>
+              </Typography>
             </Box>
+
+            <Box sx={{ fontStyle: "italic", mt: 2 }}>
+              <Typography variant="subtitle1">
+                "This Eggspedition is a egg-citing web3 egg-venture!"
+                <Typography variant="caption" display="block">
+                  – Mc Egg
+                </Typography>
+              </Typography>
+            </Box>
+
+            <Box sx={{ fontStyle: "italic", mt: 2 }}>
+              <Typography variant="subtitle1">
+                "BEE BOB BOO"
+                <Typography variant="caption" display="block">
+                  – iotabots
+                </Typography>
+              </Typography>
+            </Box>
+
+            <Typography variant="h4" mt={4} gutterBottom>
+              Disclaimer
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Step into the wild world of Eggspedition with an understanding
+              that this feathery foray is all about fun and games and does not
+              constitute financial advice. While crypto can be clucking
+              unpredictable, ensure you're only putting in what you can afford
+              to lose. Before diving beak-first, do your homework and remember:
+              every crypto coop has its risks, and no golden egg is guaranteed!
+            </Typography>
+            <Call2ActionBox
+              title={"🎉 Join the Ultimate Eggventure now! 🥚"}
+              description={
+                "Hatch into the world of 'Eggspedition!' and embark on a cracking journey like no other. Will you become the ultimate eggplorer? Only one way to find out. Dive in now!"
+              }
+              link={"farm"}
+              linkText={"🐔 To the Chickens 🐔"}
+            />
+            <Typography variant="body2" align="center" mt={4} gutterBottom>
+              Need help? Explore our <Link href="info">FAQs</Link>.
+            </Typography>
           </Box>
-          <Typography variant="body2" align="center" gutterBottom>
-            Got queries or need a map for your Eggspedition? Check our{" "}
-            <Link href="info">FAQ cove</Link>.
-          </Typography>
         </Container>
       </Base>
     </>

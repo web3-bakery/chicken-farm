@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 
 import TOKEN from "../../contracts/Token.json";
-import KPI from "./KPI";
+import KPI from "../KPI";
 import { ADDRESSES } from "../../contracts/addresses";
 
 const TotalBurnedTokens = ({ provider }: any) => {

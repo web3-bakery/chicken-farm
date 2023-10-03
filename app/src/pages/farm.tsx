@@ -12,6 +12,7 @@ import { ethers } from "ethers";
 import Link from "next/link";
 
 import { hooks, metaMask } from "../components/web3/connectors/metaMask";
+import KPI from "../components/KPI";
 
 const {
   useChainId,
@@ -108,44 +109,31 @@ export default function Farm() {
             <>
               <Typography variant="h1">Your Eggspedition! </Typography>
               <Typography variant="h5" gutterBottom>
-                Dive into the eggciting multiverse, where chickens reign supreme
-                and treasures await.
+                Mint your ChickenNFT get some eggs and grow your farm!
               </Typography>
-
-              <Tooltip title="This is the total amount of eggs in the Eggspedition universe!">
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  🥚 Total Eggs in the Universe: <strong>{tokenSupply}</strong>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 4,
+                  flexWrap: "wrap",
+                }}
+              >
+                <Box sx={{ flex: 1 }}>
+                  <KPI
+                    label="🥚 Total Eggs in the Universe"
+                    value={tokenSupply}
+                    symbol="EGGS"
+                  />
                 </Box>
-              </Tooltip>
-              <Tooltip title="This is your amount of eggs!">
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  🥚 Your Eggs: <strong>{balance}</strong>
+                <Box sx={{ flex: 1 }}>
+                  <KPI
+                    label="🥚 Your Eggs"
+                    value={balance?.toString()}
+                    symbol="EGGS"
+                  />
                 </Box>
-              </Tooltip>
+              </Box>
 
-              <Typography variant="h6" gutterBottom>
-                Ready for a new chicken companion?
-              </Typography>
               <Box
                 sx={{
                   bgcolor: "primary",
@@ -158,6 +146,7 @@ export default function Farm() {
                 }}
               >
                 <MintChicken provider={provider} account={account} />
+
                 <Typography variant="body2" align="center" gutterBottom>
                   You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions?
                   Check our <Link href="info">FAQ cove</Link>.
@@ -165,7 +154,7 @@ export default function Farm() {
               </Box>
 
               <Typography variant="h6" gutterBottom>
-                Your Eggspeditioner Chickens:
+                Your Chickens:
               </Typography>
               <Box
                 sx={{

@@ -48,7 +48,7 @@ const MintChicken = ({provider, account}: any) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 3, borderRadius: 2, boxShadow: 1 }}>
       <Typography variant="h4" gutterBottom>
-        Ready to hatch your chicken?
+        Ready to hatch your chicken in no time?
       </Typography>
 
       <Box mt={2}>
