@@ -41,5 +41,9 @@
     "eslint-config-next": "13.5.4",
     "typechain": "^8.1.1",
     "typescript": "5.0.4"
+  },
+  "resolutions": {
+    "@types/react": "17.0.14",
+    "@types/react-dom": "17.0.14"
   }
 }
