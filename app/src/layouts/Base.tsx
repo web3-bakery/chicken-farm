@@ -5,6 +5,7 @@ import { Box, CssBaseline } from "@mui/material";
 
 import { Header } from "../components/Header";
 import { useRouter } from "next/router";
+import ProviderExample from "../components/web3/components/ProviderExample";
 
 interface Props {
   hero?: React.ReactNode;
@@ -18,6 +19,7 @@ const Base: React.FC<Props> = ({ children, hero }) => {
 
   return (
     <main className={inter.className}>
+      <ProviderExample />
       <Box sx={styles} className={hero ? "hero" : ""}>
         <CssBaseline />
         <Header />

@@ -38,6 +38,7 @@
     "@types/node": "18.15.13",
     "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
+    "eslint-config-next": "13.5.4",
     "typechain": "^8.1.1",
     "typescript": "5.0.4"
   }
