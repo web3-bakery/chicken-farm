@@ -16,6 +16,17 @@ import { ethers } from "ethers";
 import NftContract from "../../contracts/ChickenNFT.json";
 import { useEffect, useState } from "react";
 
+import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
+
+const {
+  useChainId,
+  useAccounts,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks;
+
 type Chicken = {
   id: number;
   imageUrl: string;
@@ -31,23 +42,38 @@ type Chicken = {
   };
 };
 
-const ChickenDetail = ({provider, account}: any) => {
+const ChickenDetail = () => {
   const [chicken, setChicken] = useState<Chicken | null>(null);
+  const accounts = useAccounts();
+  const provider = useProvider();
 
+  const isActive = useIsActive();
+
+  const [account, setAccount] = useState("");
   const router = useRouter();
   const { id } = router.query;
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
+  useEffect(() => {
+    if (provider && accounts && accounts?.length > 0) {
+      setAccount(accounts[0]);
+    }
+  }, [accounts, provider]);
+
+  console.log("provider", provider);
   async function loadMetadata() {
+    console.log("provider2", provider);
     const nftContract = new ethers.Contract(
       NftContract.address,
       NftContract.abi,
       provider
     );
 
+    console.log("id", id);
     const chickenData = await nftContract.getChickenDetails(Number(id));
+    console.log("chickenData", chickenData);
     // Here, you might need a way to generate imageUrl, e.g., based on chickenData.
     const imageUrl = `/path/to/images/${id}.png`; // Just an example
 
@@ -72,10 +98,10 @@ const ChickenDetail = ({provider, account}: any) => {
   }
 
   useEffect(() => {
-    if (account) {
+    if (account && provider) {
       loadMetadata();
     }
-  }, [account, id]);
+  }, [account, provider]);
 
   return (
     <>
@@ -133,13 +159,12 @@ const ChickenDetail = ({provider, account}: any) => {
                 🏆 Level: {chicken?.stats.level}
               </Typography>
               {chicken?.stats.isDead ? (
-                <Chip label="Passed Away 🥀" color="secondary" />
+                <Chip label="Passed Away 🥀" color="error" />
               ) : (
-                <Chip label="Alive & Clucking" color="primary" />
+                <Chip label="Alive & Clucking" color="success" />
               )}
             </CardContent>
           </Card>
-          <pre style={{width: "100px"}}>{JSON.stringify(chicken)}</pre>
         </Container>
       </Base>
     </>

@@ -39,7 +39,7 @@ export const IdentityMenu: React.FC = () => {
     <Box sx={{ display: { xs: "none", md: "block" } }}>
       {account ? (
         <Link href="/profile">
-          <Box sx={{ cursor: "pointer" }}>
+          <Box sx={{ cursor: "pointer", color: "white" }}>
             {displayAddress}
           </Box>
         </Link>

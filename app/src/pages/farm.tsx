@@ -6,6 +6,7 @@ import MintChicken from "../components/MintChicken";
 import ChickenList from "../components/ChickenList";
 
 import EGGS_CONTRACT from "../contracts/EGGS.json";
+import ChickenNFT_CONTRACT from "../contracts/ChickenNFT.json";
 
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
@@ -34,6 +35,7 @@ export default function Farm() {
     if (isActive && accounts && accounts.length > 0) {
       setAccount(accounts[0]);
       loadTotalSupply();
+      loadChickenSupply();
     }
   }, [isActive, accounts]);
   useEffect(() => {
@@ -43,6 +45,9 @@ export default function Farm() {
   }, [account]);
 
   const [tokenSupply, setTokenSupply] = useState<string | null>(null);
+  const [aliveChickenSupply, setaliveChickenSupply] = useState<string | null>(
+    null
+  );
   const [balance, setBalance] = useState<number | null>(null);
 
   async function loadAccountBalance() {
@@ -78,6 +83,26 @@ export default function Farm() {
       let totalSupply = await token.totalSupply();
       totalSupply = ethers.utils.formatEther(totalSupply);
       setTokenSupply(totalSupply);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+  async function loadChickenSupply() {
+    if (!provider) {
+      return;
+    }
+
+    let chicken = new ethers.Contract(
+      ChickenNFT_CONTRACT.address,
+      ChickenNFT_CONTRACT.abi,
+      provider
+    );
+
+    try {
+      let aliveSupply = await chicken.totalAliveChickens();
+      console.log("aliveSupply", aliveSupply);
+      console.log("aliveSupply", aliveSupply);
+      setaliveChickenSupply(aliveSupply.toString());
     } catch (error) {
       console.log("error", error);
     }
@@ -120,20 +145,23 @@ export default function Farm() {
               >
                 <Box sx={{ flex: 1 }}>
                   <KPI
-                    label="🥚 Total Eggs in the Universe"
+                    label="🥚 Total Eggs"
                     value={tokenSupply}
                     symbol="EGGS"
                   />
                 </Box>
                 <Box sx={{ flex: 1 }}>
                   <KPI
-                    label="🥚 Your Eggs"
-                    value={balance?.toString()}
-                    symbol="EGGS"
+                    label="🐔 Total Alive Chickens"
+                    value={aliveChickenSupply}
+                    symbol="Chickens"
                   />
                 </Box>
               </Box>
 
+              <Typography variant="h4" gutterBottom>
+                Ready to hatch your chicken in no time?
+              </Typography>
               <Box
                 sx={{
                   bgcolor: "primary",
@@ -145,7 +173,24 @@ export default function Farm() {
                   p: 2,
                 }}
               >
-                <MintChicken provider={provider} account={account} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 4,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <Box sx={{ flex: 1 }}>
+                    <MintChicken provider={provider} account={account} />
+                  </Box>
+                  <Box sx={{ flex: 1 }}>
+                    <KPI
+                      label="🥚 Your Eggs"
+                      value={balance?.toString()}
+                      symbol="EGGS"
+                    />
+                  </Box>
+                </Box>
 
                 <Typography variant="body2" align="center" gutterBottom>
                   You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions?
@@ -153,8 +198,8 @@ export default function Farm() {
                 </Typography>
               </Box>
 
-              <Typography variant="h6" gutterBottom>
-                Your Chickens:
+              <Typography variant="h4" gutterBottom>
+                Your Chickens
               </Typography>
               <Box
                 sx={{

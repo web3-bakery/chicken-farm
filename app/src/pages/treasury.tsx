@@ -2,21 +2,16 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Box, Container, Typography, Tooltip, Button } from "@mui/material";
 import Base from "../layouts/Base";
-import MintChicken from "../components/MintChicken";
-import ChickenList from "../components/ChickenList";
 import BurnEggs from "../components/BurnEggs";
 
 import EGGS_CONTRACT from "../contracts/EGGS.json";
 import CHICKEN_NFT_CONTRACT from "../contracts/ChickenNFT.json";
 
-import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import Link from "next/link";
 import moment from "moment";
 import "moment-duration-format";
-import { start } from "repl";
-import AliveChickensCount from "../components/AliveChickensCount";
 import { hooks, metaMask } from "../components/web3/connectors/metaMask";
+import KPI from "../components/KPI";
 
 const {
   useChainId,
@@ -57,6 +52,7 @@ export default function Treasury() {
       await tx.wait();
     }
   }
+
   async function loadTotalSupply() {
     if (!provider && !account) {
       return;
@@ -161,50 +157,30 @@ export default function Treasury() {
               <Typography variant="h5" gutterBottom>
                 The EGGS Treasury is where all the commmuntiy funds are stored.
               </Typography>
-              <Tooltip title="This is the total amount of eggs in the Eggspedition universe!">
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  🥚 Total Eggs in the Universe: <strong>{tokenSupply}</strong>
-                </Box>
-              </Tooltip>
-              <Tooltip title="This is your amount of eggs!">
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  🥚 Your Eggs: <strong>{balance}</strong>
-                </Box>
-              </Tooltip>
-              <AliveChickensCount provider={provider} />;
+
               <Box
                 sx={{
-                  bgcolor: "primary",
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  my: 4,
-                  position: "relative",
-                  p: 2,
+                  display: "flex",
+                  gap: 4,
+                  flexWrap: "wrap",
                 }}
               >
-                🏦 Treasury Balance: <strong>{treasuryBalance} SMR</strong>
+                <Box sx={{ flex: 1 }}>
+                  <KPI
+                    label="🥚 Total Eggs"
+                    value={tokenSupply}
+                    symbol="EGGS"
+                  />
+                </Box>
+                <Box sx={{ flex: 1 }}>
+                  <KPI
+                    label="🏦 Treasury Balance"
+                    value={treasuryBalance}
+                    symbol="SMR"
+                  />
+                </Box>
               </Box>
+
               <BurnEggs provider={provider} account={account} />
               <Typography variant="h6" gutterBottom>
                 Burner Addresses and EGGS:
