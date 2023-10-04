@@ -27,7 +27,7 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
     mapping(uint256 => Chicken) public chickens;
     uint256[] public aliveChickens;
     // uint256 public eggMintLockTime = 1 days;
-    uint256 public eggMintLockTime = 1 minutes;
+    uint256 public eggMintLockTime = 3 hours;
 
     uint256 public lastCycleTimestamp = block.timestamp;
     mapping(address => uint256) public burnedEggsByUser;
