@@ -88,6 +88,8 @@ contract ChickenNFT is ERC721Enumerable, Ownable {
         checkAlive(tokenId); // This function could mark the chicken as dead
     }
 
+    // checks if the chicken is already marked as dead. If not, it calculates the number of days the chicken has been alive
+    // The probability starts at 10% and increases by 10% for every day the chicken is alive, up to a maximum of 100%.
     function checkAlive(uint256 tokenId) private {
         if (!chickens[tokenId].isDead) {
             uint256 daysAlive = (block.timestamp -

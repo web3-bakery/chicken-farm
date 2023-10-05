@@ -49,6 +49,16 @@ export default function Farm() {
     null
   );
   const [balance, setBalance] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function onChickenMinted(x: any) {
+    console.log("farm::onChickenMinted", x);
+    setLoading(true);
+    await loadTotalSupply();
+    await loadChickenSupply();
+    await loadAccountBalance();
+    setLoading(false);
+  }
 
   async function loadAccountBalance() {
     if (!provider) {
@@ -172,15 +182,22 @@ export default function Farm() {
                     value={balance?.toString()}
                     symbol="EGGS"
                   />
-                  <MintChicken provider={provider} account={account} />
+                  <MintChicken
+                    provider={provider}
+                    account={account}
+                    onChickenMinted={onChickenMinted}
+                  />
                 </Box>
               </Box>
 
               <Typography variant="h4" gutterBottom>
                 Your Chickens
               </Typography>
-
-              <ChickenList provider={provider} account={account} />
+              {loading ? (
+                <Typography gutterBottom>Loading...</Typography>
+              ) : (
+                <ChickenList provider={provider} account={account} />
+              )}
             </>
           )}
         </Container>

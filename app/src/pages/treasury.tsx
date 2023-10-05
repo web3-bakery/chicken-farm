@@ -114,7 +114,7 @@ export default function Treasury() {
     let x = moment
       .duration(moment(Number(nextCycleTimestamp)).diff(moment().unix()) * 1000)
       .format("h [hrs], m [min], s [secs]");
-    setCycleTimeLeft(x);
+    setCycleTimeLeft(nextCycleTimestamp);
   }
 
   useEffect(() => {
@@ -154,15 +154,16 @@ export default function Treasury() {
           ) : (
             <>
               <Typography variant="h1">EGGS Treasury! </Typography>
-              <Typography variant="h5" gutterBottom>
-                The EGGS Treasury is where all the commmuntiy funds are stored.
-              </Typography>
 
+              <Typography gutterBottom mb={2}>
+                The EGGS Treasury rewards active players every day.
+              </Typography>
               <Box
                 sx={{
                   display: "flex",
                   gap: 4,
                   flexWrap: "wrap",
+                  mb: 4,
                 }}
               >
                 <Box sx={{ flex: 1 }}>
@@ -181,7 +182,26 @@ export default function Treasury() {
                 </Box>
               </Box>
 
-              <BurnEggs provider={provider} account={account} />
+              <Typography variant="h4" gutterBottom>
+                Burn EGGS
+              </Typography>
+
+              <Box sx={{ mt: 2, mb: 4 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 4,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <KPI
+                    label="🥚 Your Eggs"
+                    value={balance?.toString()}
+                    symbol="EGGS"
+                  />
+                  <BurnEggs provider={provider} account={account} />
+                </Box>
+              </Box>
               <Typography variant="h6" gutterBottom>
                 Burner Addresses and EGGS:
               </Typography>
@@ -202,26 +222,54 @@ export default function Treasury() {
                   </Typography>
                 ))}
               </Box>
-              <Box
-                sx={{
-                  bgcolor: "primary",
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  my: 4,
-                  position: "relative",
-                  p: 2,
-                }}
-              >
-                ⏳ Time left for current cycle: <strong>{cycleTimeLeft}</strong>
-              </Box>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={startNewCycle}
-              >
-                Start new cycle
-              </Button>
+              {moment(Number(cycleTimeLeft)).diff(moment().unix()) > 0 ? (
+                <Box
+                  sx={{
+                    bgcolor: "primary",
+                    borderRadius: 2,
+                    boxShadow: 1,
+                    overflow: "hidden",
+                    my: 4,
+                    position: "relative",
+                    p: 2,
+                  }}
+                >
+                  ⏳ Time left for current cycle:{" "}
+                  <strong>
+                    {moment
+                      .duration(
+                        moment(Number(cycleTimeLeft)).diff(moment().unix()) *
+                          1000
+                      )
+                      .format("h [hrs], m [min], s [secs]")}
+                  </strong>
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    bgcolor: "primary",
+                    borderRadius: 2,
+                    boxShadow: 1,
+                    overflow: "hidden",
+                    my: 4,
+                    position: "relative",
+                    p: 2,
+                  }}
+                >
+                  <Typography variant="h6">
+                    🎉 Start the new cycle and become some shares of the
+                    treasury!
+                  </Typography>
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={startNewCycle}
+                  >
+                    Start new cycle
+                  </Button>
+                </Box>
+              )}
             </>
           )}
         </Container>

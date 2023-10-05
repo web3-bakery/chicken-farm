@@ -1,7 +1,7 @@
 // components/BurnEggs.tsx
 
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import CHICKEN_CONTRACT from "../contracts/ChickenNFT.json";
@@ -41,7 +41,13 @@ const BurnEggs = ({ provider, account }: any) => {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       <TextField
         label="Amount to Burn"
         value={amount}
@@ -51,7 +57,7 @@ const BurnEggs = ({ provider, account }: any) => {
       <Button variant="contained" color="primary" onClick={handleBurn}>
         Burn EGGS
       </Button>
-    </div>
+    </Box>
   );
 };
 

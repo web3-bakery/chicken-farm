@@ -13,12 +13,14 @@ interface ChickenListItemProps {
     nextEggMintedTime: number;
   };
   onMintEgg: () => void;
+  onHatchEgg: () => void;
   provider: any;
 }
 
 const ChickenListItem: React.FC<ChickenListItemProps> = ({
   chicken,
   onMintEgg,
+  onHatchEgg,
   provider,
 }) => {
   const actionTime = moment(chicken.nextEggMintedTime).diff(moment().unix());
@@ -76,7 +78,11 @@ const ChickenListItem: React.FC<ChickenListItemProps> = ({
       ) : (
         <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
           <EggMinter chicken={chicken} onMintEgg={onMintEgg} />
-          <EggHatcher chicken={chicken} provider={provider} />
+          <EggHatcher
+            chicken={chicken}
+            provider={provider}
+            onHatchEgg={onHatchEgg}
+          />
         </Box>
       )}
     </Box>

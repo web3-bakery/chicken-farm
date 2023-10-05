@@ -27,14 +27,14 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
           NftContract.address,
           account
         );
-        const updatedNfts = await loadMetadata(data);
+        const updatedNfts = await loadChickenDetails(data);
         setNfts(updatedNfts);
       }
     };
     loadNfts();
   }, [account]);
 
-  const loadMetadata = async (_nfts: any) => {
+  const loadChickenDetails = async (_nfts: any) => {
     const nftContract = new ethers.Contract(
       NftContract.address,
       NftContract.abi,
@@ -53,6 +53,10 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
     return updatedNfts;
   };
 
+  const handleHatchEgg = async (tokenId: any) => {
+    const updatedNfts = await loadChickenDetails(nfts);
+    setNfts(updatedNfts);
+  };
   const handleMintEgg = async (tokenId: any) => {
     try {
       const nftContract = new ethers.Contract(
@@ -63,7 +67,8 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
       let res = await nftContract.mintEgg(tokenId, { gasLimit: 5000000 });
       await res.wait();
       setMessage("🎉 Successfully minted 1 EGG!");
-      loadMetadata(nfts);
+      const updatedNfts = await loadChickenDetails(nfts);
+      setNfts(updatedNfts);
     } catch (error: any) {
       setMessage(extractErrorMessage(error.message));
     }
@@ -100,6 +105,7 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
               key={chicken.tokenId}
               chicken={chicken}
               onMintEgg={() => handleMintEgg(chicken.tokenId)}
+              onHatchEgg={() => handleHatchEgg(chicken.tokenId)}
               provider={provider}
             />
           ))

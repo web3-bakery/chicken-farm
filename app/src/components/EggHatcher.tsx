@@ -13,7 +13,7 @@ import NftContract from "../contracts/ChickenNFT.json";
 import EGGSContract from "../contracts/EGGS.json";
 import moment from "moment";
 
-const EggHatcher = ({ chicken, isLoading, provider }: any) => {
+const EggHatcher = ({ chicken, isLoading, provider, onHatchEgg }: any) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,6 +49,7 @@ const EggHatcher = ({ chicken, isLoading, provider }: any) => {
       // Placeholder logic for hatching success
       setLoading(false);
       setSuccess(true);
+      onHatchEgg();
     } catch (err: any) {
       // Handle the error
       setLoading(false);

@@ -11,7 +11,7 @@ import {
 import NftContract from "../contracts/ChickenNFT.json";
 import EGGSContract from "../contracts/EGGS.json";
 
-const MintChicken = ({ provider, account }: any) => {
+const MintChicken = ({ provider, account, onChickenMinted }: any) => {
   const [nftContract, setNftContract] = useState<any>(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,10 @@ const MintChicken = ({ provider, account }: any) => {
         value: ethers.utils.parseEther("10"),
       });
       setMessage(`🎉 Successfully minted NFT!`);
-      await result.wait();
+      let x = await result.wait();
+      onChickenMinted(x);
+      console.log("Button::result", result);
+      console.log("Button::wait", x);
     } catch (error: any) {
       setMessage(`❌ Error minting NFT: ${error.message}`);
     } finally {
