@@ -34,9 +34,14 @@ interface Item {
   // Add more attributes as needed
 }
 
-const ItemsDisplay: React.FC = ({onItemSelectedCallback}: any) => {
+interface Props {
+  onItemSelectedCallback: (item: Item) => void;
+}
+
+const ItemsDisplay = (props: Props) => {
+  const { onItemSelectedCallback } = props;
   const [items, setItems] = useState<Item[]>([]);
-  const [selectedItem, setSelectedItem] = useState<Item[]>([]);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const accounts = useAccounts();
   const [account, setAccount] = useState("");
   const provider = useProvider();
@@ -56,11 +61,10 @@ const ItemsDisplay: React.FC = ({onItemSelectedCallback}: any) => {
 
   const handleSelectItem = async (item: any) => {
     console.log("handleSelectItem", item);
-    setSelectedItem(item)
-    onItemSelectedCallback(item)
-  }
+    setSelectedItem(item);
+    onItemSelectedCallback(item);
+  };
 
-    
   const loadUserItems = async () => {
     if (!provider) {
       return;
@@ -101,7 +105,13 @@ const ItemsDisplay: React.FC = ({onItemSelectedCallback}: any) => {
         {items.map((item) => (
           <ListItem key={item.itemId}>
             <Typography variant="body1">{item.name}</Typography>
-            <Button variant="contained" color={ item.itemId == selectedItem?.itemId ? "primary" : "secondary"  } onClick={() => handleSelectItem(item)} >
+            <Button
+              variant="contained"
+              color={
+                item.itemId == selectedItem?.itemId ? "primary" : "secondary"
+              }
+              onClick={() => handleSelectItem(item)}
+            >
               Place on Farm
               {ITEM_EMOJIS[item.itemId] || "🌱"}({item.balance})
             </Button>

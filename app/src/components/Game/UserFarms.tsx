@@ -24,7 +24,12 @@ interface UserFarmsProps {
   userAddress: string; // Ethereum address of the current user
 }
 
-const UserFarms: React.FC = ({onFarmClickedCallback}: any) => {
+interface Props {
+  onFarmClickedCallback: (farmId: string) => void;
+}
+
+const UserFarms = (props: Props) => {
+  const { onFarmClickedCallback } = props;
   const [farms, setFarms] = useState<number[]>([]);
   const accounts = useAccounts();
   const [account, setAccount] = useState("");
@@ -75,7 +80,11 @@ const UserFarms: React.FC = ({onFarmClickedCallback}: any) => {
             <TableCell>{farmId.toString()}</TableCell>
             <TableCell>
               {/* You can route to a detail view page or open a modal to display farm details */}
-              <Button onClick={() => onFarmClickedCallback(farmId)} variant="contained" color="primary">
+              <Button
+                onClick={() => onFarmClickedCallback(farmId.toString())}
+                variant="contained"
+                color="primary"
+              >
                 View Details
               </Button>
             </TableCell>

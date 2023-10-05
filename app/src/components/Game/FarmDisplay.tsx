@@ -19,7 +19,13 @@ interface Farm {
   // Add more attributes as needed
 }
 
-const FarmDisplay: React.FC = ({ farmId, selectedItem }: any) => {
+interface Props {
+  farmId: string;
+  selectedItem: any;
+}
+
+const FarmDisplay = (props: Props) => {
+  const { farmId, selectedItem } = props;
   const [farm, setFarm] = useState<Farm | null>(null);
 
   const [account, setAccount] = useState("");

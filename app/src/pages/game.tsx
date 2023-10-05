@@ -35,15 +35,14 @@ const Game = () => {
     }
   }, [isActive, accounts]);
 
-  const onFarmClicked = (farmId: any) => {
+  const onFarmClicked = (farmId: string) => {
     console.log("onFarmClicked", farmId);
-    setFarmId(farmId.toString())
-  }
+    setFarmId(farmId.toString());
+  };
   const onItemSelected = (item: any) => {
     console.log("onItemSelected", item);
-    setSelectedItem(item)
-    
-  }
+    setSelectedItem(item);
+  };
 
   return (
     <Base>
