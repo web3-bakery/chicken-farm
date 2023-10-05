@@ -8,11 +8,11 @@ import { ethers } from "hardhat";
 async function main() {
   const TOKEN = await ethers.getContractFactory("EGGS");
 
-  let token = await TOKEN.attach("0x610178dA211FEF7D417bC0e6FeD39F05609AD788");
+  let token = await TOKEN.attach("0x8cD395eF72C8F34D1c817D6418005A83F3b3e32a");
 
 
   let res = await token.transferOwnership(
-    "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
+    "0xd263E47df9d0bEB71be9987e150880abF2444470"
   );
 
   console.log("res");
