@@ -15,11 +15,10 @@ const KPI: React.FC<Props> = (props) => {
         {label}
       </Typography>
       <Box sx={styles.wrapper}>
-        <Typography boxShadow={1} variant="h6" my={0} mr={1}>
+        <Typography variant="h6" my={0} mr={1}>
           {value ? value.split(".")[0] : <Skeleton width={60} />}
         </Typography>
         <Typography
-          boxShadow={1}
           fontWeight={700}
           fontSize={12}
           color="text.secondary"

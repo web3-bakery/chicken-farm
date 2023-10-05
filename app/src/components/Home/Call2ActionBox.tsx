@@ -29,7 +29,7 @@ const Call2ActionBox: React.FC<Call2ActionBoxProps> = (props) => {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(90deg, rgba(22, 22, 22, 0) 0%, rgba(22, 22, 22, 1) 100%)",
+            "linear-gradient(90deg, rgba(22, 22, 22, 0) 0%, #998206 100%)",
         }}
       />
       <Box
@@ -42,10 +42,10 @@ const Call2ActionBox: React.FC<Call2ActionBoxProps> = (props) => {
         }}
       >
         <Box sx={{ flex: 1 }}>
-          <Typography gutterBottom variant="h4">
+          <Typography color='background.default' gutterBottom variant="h4">
             {title}
           </Typography>
-          <Typography>{description}</Typography>
+          <Typography color='background.default'>{description}</Typography>
           <Link href={link.toString()}>
             <Button
               sx={{ height: 40, mt: 2 }}

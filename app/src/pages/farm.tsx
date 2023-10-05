@@ -123,17 +123,17 @@ export default function Farm() {
         <Container maxWidth="md">
           {!isActive ? (
             <>
-              <Typography variant="h3" gutterBottom>
+              <Typography variant="h1" gutterBottom>
                 Welcome new farmer!
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography gutterBottom>
                 Please connect your wallet to continue.
               </Typography>
             </>
           ) : (
             <>
-              <Typography variant="h1">Your Eggspedition! </Typography>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h1">Farm </Typography>
+              <Typography gutterBottom mb={2}>
                 Mint your ChickenNFT get some eggs and grow your farm!
               </Typography>
               <Box
@@ -141,38 +141,25 @@ export default function Farm() {
                   display: "flex",
                   gap: 4,
                   flexWrap: "wrap",
+                  mb: 4,
                 }}
               >
-                <Box sx={{ flex: 1 }}>
-                  <KPI
-                    label="🥚 Total Eggs"
-                    value={tokenSupply}
-                    symbol="EGGS"
-                  />
-                </Box>
-                <Box sx={{ flex: 1 }}>
-                  <KPI
-                    label="🐔 Total Alive Chickens"
-                    value={aliveChickenSupply}
-                    symbol="Chickens"
-                  />
-                </Box>
+                <KPI label="🥚 Total Eggs" value={tokenSupply} symbol="EGGS" />
+                <KPI
+                  label="🐔 Total Alive Chickens"
+                  value={aliveChickenSupply}
+                  symbol="Chickens"
+                />
               </Box>
 
               <Typography variant="h4" gutterBottom>
                 Ready to hatch your chicken in no time?
               </Typography>
-              <Box
-                sx={{
-                  bgcolor: "primary",
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  my: 4,
-                  position: "relative",
-                  p: 2,
-                }}
-              >
+              <Typography gutterBottom>
+                You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions?
+                Check our <Link href="info">FAQ cove</Link>.
+              </Typography>
+              <Box sx={{ mt: 2, mb: 4 }}>
                 <Box
                   sx={{
                     display: "flex",
@@ -180,40 +167,20 @@ export default function Farm() {
                     flexWrap: "wrap",
                   }}
                 >
-                  <Box sx={{ flex: 1 }}>
-                    <MintChicken provider={provider} account={account} />
-                  </Box>
-                  <Box sx={{ flex: 1 }}>
-                    <KPI
-                      label="🥚 Your Eggs"
-                      value={balance?.toString()}
-                      symbol="EGGS"
-                    />
-                  </Box>
+                  <KPI
+                    label="🥚 Your Eggs"
+                    value={balance?.toString()}
+                    symbol="EGGS"
+                  />
+                  <MintChicken provider={provider} account={account} />
                 </Box>
-
-                <Typography variant="body2" align="center" gutterBottom>
-                  You can mint a ChickenNFT with 1 EGGS and 10 SMR. Questions?
-                  Check our <Link href="info">FAQ cove</Link>.
-                </Typography>
               </Box>
 
               <Typography variant="h4" gutterBottom>
                 Your Chickens
               </Typography>
-              <Box
-                sx={{
-                  bgcolor: "primary",
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  my: 4,
-                  position: "relative",
-                  p: 2,
-                }}
-              >
-                <ChickenList provider={provider} account={account} />
-              </Box>
+
+              <ChickenList provider={provider} account={account} />
             </>
           )}
         </Container>

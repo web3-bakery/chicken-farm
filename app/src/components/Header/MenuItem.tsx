@@ -51,7 +51,7 @@ const styles = {
     "&:hover": {
       cursor: "pointer",
       bgcolor: "primary.main",
-      color: "common.white",
+      color: "background.paper",
     },
   },
 };

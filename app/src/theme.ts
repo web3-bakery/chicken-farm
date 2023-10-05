@@ -36,9 +36,9 @@ export const THEME = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(","),
-    h1: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[9], fontFamily: '"Fredericka the Great"' },
-    h2: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[8], fontFamily: '"Fredericka the Great"' },
-    h3: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[7], fontFamily: '"Fredericka the Great"' },
+    h1: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[9] },
+    h2: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[8] },
+    h3: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[7] },
     h4: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[6] },
     h5: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[5] },
     h6: { ...BASE_HEADLINE_STYLES, fontSize: TYPE_SPACING[4] },
@@ -59,7 +59,7 @@ export const THEME = createTheme({
     mode: "dark",
     primary: {
       main: "#FFD700", // Golden yellow
-      contrastText: "#fff",
+      contrastText: "#000",
     },
     secondary: {
       main: "#8B4513", // Saddle brown
@@ -76,9 +76,6 @@ export const THEME = createTheme({
         root: {
           textDecoration: "none",
           textTransform: "none",
-          "&.MuiButton-containedPrimary": {
-            color: "#ffffff",
-          },
         },
       },
     },

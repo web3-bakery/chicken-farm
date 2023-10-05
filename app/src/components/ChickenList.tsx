@@ -19,11 +19,14 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
   const [message, setMessage] = useState<string>("");
   const [nfts, setNfts] = useState<any[]>([]);
 
-
   useEffect(() => {
     const loadNfts = async () => {
       if (account) {
-        const data = await utils.loadNfts(provider, NftContract.address, account);
+        const data = await utils.loadNfts(
+          provider,
+          NftContract.address,
+          account
+        );
         const updatedNfts = await loadMetadata(data);
         setNfts(updatedNfts);
       }
@@ -32,7 +35,11 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
   }, [account]);
 
   const loadMetadata = async (_nfts: any) => {
-    const nftContract = new ethers.Contract(NftContract.address, NftContract.abi, provider);
+    const nftContract = new ethers.Contract(
+      NftContract.address,
+      NftContract.abi,
+      provider
+    );
     const updatedNfts = await Promise.all(
       _nfts.map(async (nft: any) => {
         const chicken = await nftContract.getChickenDetails(nft.tokenId);
@@ -48,7 +55,11 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
 
   const handleMintEgg = async (tokenId: any) => {
     try {
-      const nftContract = new ethers.Contract(NftContract.address, NftContract.abi, provider.getSigner());
+      const nftContract = new ethers.Contract(
+        NftContract.address,
+        NftContract.abi,
+        provider.getSigner()
+      );
       let res = await nftContract.mintEgg(tokenId, { gasLimit: 5000000 });
       await res.wait();
       setMessage("🎉 Successfully minted 1 EGG!");
@@ -62,20 +73,25 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
     const errorMsgPrefix = "reverted with reason string '";
     const start = log.indexOf(errorMsgPrefix);
     const end = log.indexOf("'", start + errorMsgPrefix.length);
-    return start !== -1 ? log.substring(start + errorMsgPrefix.length, end) : "An error occurred";
+    return start !== -1
+      ? log.substring(start + errorMsgPrefix.length, end)
+      : "An error occurred";
   };
 
   return (
     <Box sx={{ maxWidth: "1200px", margin: "auto" }}>
-      {message && <Typography variant="body1" sx={{ mb: 2 }}>{message}</Typography>}
+      {message && (
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          {message}
+        </Typography>
+      )}
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          gap: 2,
           mt: 2,
           mb: 4,
-          justifyContent: "center",
+          gap: 2,
         }}
       >
         {account && nfts.length > 0 ? (

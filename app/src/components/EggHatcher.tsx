@@ -66,61 +66,51 @@ const EggHatcher = ({ chicken, isLoading, provider }: any) => {
         justifyContent: "center",
       }}
     >
-      {moment(chicken.nextEggMintedTime).diff(moment().unix()) > 0 ? (
-        <Typography variant="body1" gutterBottom>
-          Your chicken is not ready to hatch!
-        </Typography>
-      ) : (
-        <>
-          <Typography variant="body1" gutterBottom>
-            or ready to hatch an egg?
-          </Typography>
-          <Button
-            variant="contained"
-            startIcon={
-              isLoading ? (
-                <CircularProgress size={24} />
-              ) : (
-                <Typography>🐣</Typography>
-              )
-            }
-            color="primary"
-            disabled={loading}
-            onClick={handleHatch}
-          >
-            Hatch Egg
-            {loading && <CircularProgress size={24} sx={{ ml: 1 }} />}
-          </Button>
+      <Button
+        variant="contained"
+        fullWidth
+        startIcon={
+          isLoading ? (
+            <CircularProgress size={24} />
+          ) : (
+            <Typography>🐣</Typography>
+          )
+        }
+        color="primary"
+        disabled={loading}
+        onClick={handleHatch}
+      >
+        Hatch Chicken
+        {loading && <CircularProgress size={24} sx={{ ml: 1 }} />}
+      </Button>
 
-          <Snackbar
-            open={success}
-            autoHideDuration={6000}
-            onClose={() => setSuccess(false)}
-          >
-            <Alert
-              onClose={() => setSuccess(false)}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              Congratulations! Your egg has been hatched! 🐣
-            </Alert>
-          </Snackbar>
+      <Snackbar
+        open={success}
+        autoHideDuration={6000}
+        onClose={() => setSuccess(false)}
+      >
+        <Alert
+          onClose={() => setSuccess(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Congratulations! Your egg has been hatched! 🐣
+        </Alert>
+      </Snackbar>
 
-          <Snackbar
-            open={!!error}
-            autoHideDuration={6000}
-            onClose={() => setError(null)}
-          >
-            <Alert
-              onClose={() => setError(null)}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              {error}
-            </Alert>
-          </Snackbar>
-        </>
-      )}
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={() => setError(null)}
+      >
+        <Alert
+          onClose={() => setError(null)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          {error}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

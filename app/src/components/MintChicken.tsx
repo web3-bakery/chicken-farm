@@ -77,7 +77,7 @@ const MintChicken = ({ provider, account }: any) => {
             )
           }
         >
-          Mint ChickenNFT
+          Mint Chicken
         </Button>
       </Box>
 

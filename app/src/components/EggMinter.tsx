@@ -29,32 +29,25 @@ const EggMinter = ({ chicken, onMintEgg, isLoading }: any) => {
         justifyContent: "center",
       }}
     >
-      {moment(chicken.nextEggMintedTime).diff(moment().unix()) > 0 ? (
-        <Typography>Your chicken is not reeady to lay an egg!</Typography>
-      ) : (
-        <>
-          <Typography>
-            {chicken.isAlive ? "You can mint an egg now!" : ""}
-          </Typography>
-          <Button
-            variant="contained"
-            startIcon={
-              isLoading ? (
-                <CircularProgress size={24} />
-              ) : (
-                <Typography>🥚</Typography>
-              )
-            }
-            onClick={onMintEgg}
-          >
-            {chicken.isAlive
-              ? isLoading
-                ? "Minting..."
-                : "Mint Egg"
-              : "Chicken is Dead"}
-          </Button>
-        </>
-      )}
+      <Button
+        variant="contained"
+        fullWidth
+        color="secondary"
+        startIcon={
+          isLoading ? (
+            <CircularProgress size={24} />
+          ) : (
+            <Typography>🥚</Typography>
+          )
+        }
+        onClick={onMintEgg}
+      >
+        {chicken.isAlive
+          ? isLoading
+            ? "Minting..."
+            : "Mint Egg"
+          : "Chicken is Dead"}
+      </Button>
     </Box>
   );
 };

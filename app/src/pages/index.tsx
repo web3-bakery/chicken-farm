@@ -25,25 +25,25 @@ export default function Home() {
         <Container maxWidth="md">
           <Box sx={{ padding: 4, spacing: 4 }}>
             <Typography variant="h1" align="center" gutterBottom>
-              🐔 Chicken Farm 🐔
+              🐔 Chicken Farm
             </Typography>
 
-            <Typography variant="body1" gutterBottom>
+            <Typography align="center" gutterBottom>
               Dive into the ultimate coop on the metaverse. Adventure awaits in
               every EGG!
             </Typography>
 
             <Call2ActionBox
-              title="🎉 Join the Ultimate Eggventure now! 🥚"
+              title="🎉 Join the Ultimate Eggventure now!"
               description="Hatch into the world of 'Eggspedition!' and embark on a cracking
             journey like no other. Will you become the ultimate eggplorer? Only
             one way to find out. Dive in now!"
               link="farm"
-              linkText="🐔 To the Chickens 🐔"
+              linkText="🐔 To the Chickens"
             />
 
             <Typography variant="h4" mt={4} gutterBottom>
-              🥚 Why Join The Eggspedition? 🥚
+              🥚 Why Join The Eggspedition?
             </Typography>
 
             <List>
@@ -66,7 +66,7 @@ export default function Home() {
             </List>
 
             <Typography variant="h4" mt={4} gutterBottom>
-              🐣 Start Your Journey 🐣
+              🐣 Start Your Journey
             </Typography>
 
             <List>
@@ -84,7 +84,7 @@ export default function Home() {
             </List>
 
             <Typography variant="h4" mt={4} gutterBottom>
-              🎤 Reviews from Adventurers 🎤
+              🎤 Reviews from Adventurers
             </Typography>
 
             <Box sx={{ fontStyle: "italic", mt: 2 }}>
@@ -117,7 +117,7 @@ export default function Home() {
             <Typography variant="h4" mt={4} gutterBottom>
               Disclaimer
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography gutterBottom>
               Step into the wild world of Eggspedition with an understanding
               that this feathery foray is all about fun and games and does not
               constitute financial advice. While crypto can be clucking
