@@ -20,6 +20,7 @@ import moment from "moment";
 import "moment-duration-format";
 import { hooks, metaMask } from "../components/web3/connectors/metaMask";
 import KPI from "../components/KPI";
+import Link from "next/link";
 
 const {
   useChainId,
@@ -140,14 +141,14 @@ export default function Treasury() {
 
   const calculateReward = () => {
     if (!treasuryBalance || !aliveUserChickens) return 0;
-    let x = Number(aliveUserChickens.length) + 1;
+    let x = Number(aliveUserChickens.length) + 1; // +1 for the caller of startNewCycle
     console.log(
       "Number(aliveUserChickens.length)",
       Number(aliveUserChickens.length)
     );
     console.log("x test", x);
     console.log("Number(treasuryBalance)", Number(treasuryBalance));
-    const reward = (Number(treasuryBalance) * 0.8) / x; // +1 for the caller of startNewCycle
+    const reward = (Number(treasuryBalance) * 0.8) / x;
     return reward;
   };
 
@@ -318,7 +319,7 @@ export default function Treasury() {
                       Every time SMR tokens dance into the EGG-osystem, they
                       feed into the grand treasury.
                     </Typography>
-                    <Typography variant="body1" gutterBottom>
+                    <Typography variant="body1">
                       A whopping <strong>80%</strong> of this glistening trove
                       is graciously shared amongst the{" "}
                       <strong>active players</strong>, raining down on them
@@ -327,21 +328,22 @@ export default function Treasury() {
                       divided:
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      <ul>
-                        <li>
+                      <List>
+                        <ListItem sx={{ display: "list-item" }}>
                           🎮 Half is channeled into the game's{" "}
                           <strong>Development Treasury</strong> ensuring the
                           world of EGG-osystem keeps evolving.
-                        </li>
-                        <li>
+                        </ListItem>
+                        <ListItem sx={{ display: "list-item" }}>
                           🌍 The other half seeds the{" "}
                           <strong>Community Treasury</strong>, which not only
                           fuels the game but also breathes life into real-world
                           sustainable farm projects. Because here here, fantasy
                           meets reality and we all do a positive impact on the
-                          world.
-                        </li>
-                      </ul>
+                          world. Checkout the{" "}
+                          <Link href="dao">experimental ChickenDAO</Link>.
+                        </ListItem>
+                      </List>
                     </Typography>
                   </Box>
                 </>
