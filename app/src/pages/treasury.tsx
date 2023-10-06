@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Container, Typography, Tooltip, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Tooltip,
+  Button,
+  List,
+  ListItem,
+} from "@mui/material";
 import Base from "../layouts/Base";
 import BurnEggs from "../components/BurnEggs";
 
@@ -27,17 +35,18 @@ export default function Treasury() {
 
   const isActive = useIsActive();
 
+  const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState("");
-  const [tokenSupply, setTokenSupply] = useState<string | null>(null);
-  const [balance, setBalance] = useState<number | null>(null);
+  const [rewards, setRewards] = useState("0");
+  const [aliveChickenSupply, setaliveChickenSupply] = useState<string | null>(
+    null
+  );
   const [treasuryBalance, setTreasuryBalance] = useState<string | null>(null);
-  const [burners, setBurners] = useState<any[]>([]);
+  const [aliveUserChickens, setAliveUserChickens] = useState<any | null>(null);
   const [cycleTimeLeft, setCycleTimeLeft] = useState<string>("");
-  const [burnersList, setBurnersList] = useState<
-    Array<{ address: string; burnedEggs: number }>
-  >([]);
 
   async function startNewCycle() {
+    setLoading(true);
     if (!provider && !account) {
       return;
     }
@@ -50,10 +59,26 @@ export default function Treasury() {
 
       const tx = await chickenNFT.startNewCycle();
       await tx.wait();
+      setLoading(false);
     }
   }
 
+  async function claimRewards() {
+    console.log("claimRewards test");
+    if (!provider && !account) {
+      return;
+    }
+    let chickenNFT = new ethers.Contract(
+      CHICKEN_NFT_CONTRACT.address,
+      CHICKEN_NFT_CONTRACT.abi,
+      provider?.getSigner()
+    );
+
+    let tx = await chickenNFT.withdrawRewards();
+    await tx.wait();
+  }
   async function loadTotalSupply() {
+    setLoading(true);
     if (!provider && !account) {
       return;
     }
@@ -69,44 +94,26 @@ export default function Treasury() {
       provider
     );
 
-    let totalSupply = await token.totalSupply();
-    totalSupply = ethers.utils.formatEther(totalSupply);
-    console.log("totalSupply test", totalSupply);
-    setTokenSupply(totalSupply);
-
-    let _balance = await token.balanceOf(account);
-    _balance = ethers.utils.formatEther(_balance);
-    setBalance(_balance);
-
-    // Treasury Balance
-    let _treasuryBalance = await provider!.getBalance(
-      CHICKEN_NFT_CONTRACT.address
-    );
-    setTreasuryBalance(ethers.utils.formatEther(_treasuryBalance));
-
-    // Burners Information
-    console.log("burnerAddresses test");
-    let burnerAddresses: any = [];
-    let index = 0;
-    while (true) {
-      try {
-        let burnerAddress = await chickenNFT.burners(index);
-        burnerAddresses.push(burnerAddress);
-        index++;
-      } catch (error) {
-        break;
+    let totalChickenSupply = await chickenNFT.totalAliveChickens();
+    console.log("totalChickenSupply test", totalChickenSupply);
+    setaliveChickenSupply(totalChickenSupply.toString());
+    let _rewards = await chickenNFT.pendingRewards(account);
+    setRewards(ethers.utils.formatEther(_rewards));
+    let userChickens = await chickenNFT.walletOfOwner(account);
+    let _aliveUserChickens = [];
+    for (let i = 0; i < userChickens.length; i++) {
+      let chicken = userChickens[i];
+      let chickenInfo = await chickenNFT.getChickenDetails(chicken);
+      console.log("chickenInfo test", chickenInfo);
+      if (chickenInfo.isDead == false) {
+        _aliveUserChickens.push(chicken);
       }
     }
-
-    const burnersWithData = [];
-    for (const burner of burnerAddresses) {
-      const burnedEggs = await chickenNFT.burnedEggsByUser(burner);
-      burnersWithData.push({
-        address: String(burner),
-        burnedEggs: Number(ethers.utils.formatEther(burnedEggs)),
-      });
-    }
-    setBurnersList(burnersWithData);
+    setAliveUserChickens(_aliveUserChickens);
+    // Treasury Balance
+    let _treasuryBalance = await chickenNFT.treasury();
+    console.log("Treasury value:", ethers.utils.formatEther(_treasuryBalance)); // Convert from wei to ether for display: ;
+    setTreasuryBalance(ethers.utils.formatEther(_treasuryBalance));
 
     // Cycle Time Left
     let nextCycleTimestamp = await chickenNFT.nextCycleTimestamp();
@@ -115,6 +122,8 @@ export default function Treasury() {
       .duration(moment(Number(nextCycleTimestamp)).diff(moment().unix()) * 1000)
       .format("h [hrs], m [min], s [secs]");
     setCycleTimeLeft(nextCycleTimestamp);
+
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -128,6 +137,19 @@ export default function Treasury() {
       loadTotalSupply();
     }
   }, [account]);
+
+  const calculateReward = () => {
+    if (!treasuryBalance || !aliveUserChickens) return 0;
+    let x = Number(aliveUserChickens.length) + 1;
+    console.log(
+      "Number(aliveUserChickens.length)",
+      Number(aliveUserChickens.length)
+    );
+    console.log("x test", x);
+    console.log("Number(treasuryBalance)", Number(treasuryBalance));
+    const reward = (Number(treasuryBalance) * 0.8) / x; // +1 for the caller of startNewCycle
+    return reward;
+  };
 
   return (
     <>
@@ -158,117 +180,171 @@ export default function Treasury() {
               <Typography gutterBottom mb={2}>
                 The EGGS Treasury rewards active players every day.
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 4,
-                  flexWrap: "wrap",
-                  mb: 4,
-                }}
-              >
-                <Box sx={{ flex: 1 }}>
-                  <KPI
-                    label="🥚 Total Eggs"
-                    value={tokenSupply}
-                    symbol="EGGS"
-                  />
-                </Box>
-                <Box sx={{ flex: 1 }}>
-                  <KPI
-                    label="🏦 Treasury Balance"
-                    value={treasuryBalance}
-                    symbol="SMR"
-                  />
-                </Box>
-              </Box>
-
-              <Typography variant="h4" gutterBottom>
-                Burn EGGS
-              </Typography>
-
-              <Box sx={{ mt: 2, mb: 4 }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 4,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <KPI
-                    label="🥚 Your Eggs"
-                    value={balance?.toString()}
-                    symbol="EGGS"
-                  />
-                  <BurnEggs provider={provider} account={account} />
-                </Box>
-              </Box>
-              <Typography variant="h6" gutterBottom>
-                Burner Addresses and EGGS:
-              </Typography>
-              <Box
-                sx={{
-                  bgcolor: "primary",
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  overflow: "hidden",
-                  my: 4,
-                  position: "relative",
-                  p: 2,
-                }}
-              >
-                {burnersList.map((burner, index) => (
-                  <Typography key={index}>
-                    Adresse: {burner.address} - burned EGGS: {burner.burnedEggs}
-                  </Typography>
-                ))}
-              </Box>
-              {moment(Number(cycleTimeLeft)).diff(moment().unix()) > 0 ? (
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  ⏳ Time left for current cycle:{" "}
-                  <strong>
-                    {moment
-                      .duration(
-                        moment(Number(cycleTimeLeft)).diff(moment().unix()) *
-                          1000
-                      )
-                      .format("h [hrs], m [min], s [secs]")}
-                  </strong>
-                </Box>
-              ) : (
-                <Box
-                  sx={{
-                    bgcolor: "primary",
-                    borderRadius: 2,
-                    boxShadow: 1,
-                    overflow: "hidden",
-                    my: 4,
-                    position: "relative",
-                    p: 2,
-                  }}
-                >
-                  <Typography variant="h6">
-                    🎉 Start the new cycle and become some shares of the
-                    treasury!
-                  </Typography>
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={startNewCycle}
+              {!loading && (
+                <>
+                  <Box
+                    sx={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
                   >
-                    Start new cycle
-                  </Button>
-                </Box>
+                    {moment(Number(cycleTimeLeft)).diff(moment().unix()) <=
+                    0 ? (
+                      <Box
+                        sx={{
+                          bgcolor: "primary",
+                          borderRadius: 2,
+                          boxShadow: 1,
+                          overflow: "hidden",
+                          my: 4,
+                          position: "relative",
+                          p: 2,
+                        }}
+                      >
+                        <Typography variant="body1" gutterBottom>
+                          🎉 Start the new cycle and become some shares of the
+                          treasury!
+                        </Typography>
+
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={startNewCycle}
+                        >
+                          Start new cycle
+                        </Button>
+                      </Box>
+                    ) : (
+                      <Box
+                        sx={{
+                          my: 4,
+                        }}
+                      >
+                        ⏳ Time left for current cycle:{" "}
+                        <strong>
+                          {moment
+                            .duration(
+                              moment(Number(cycleTimeLeft)).diff(
+                                moment().unix()
+                              ) * 1000
+                            )
+                            .format("h [hrs], m [min], s [secs]")}
+                        </strong>
+                      </Box>
+                    )}
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 4,
+                      flexWrap: "wrap",
+                      mb: 4,
+                    }}
+                  >
+                    <Box sx={{ flex: 1 }}>
+                      <KPI
+                        label=" 🐔 Current Alive Chicken Supply"
+                        value={aliveChickenSupply}
+                        symbol="Chickens"
+                      />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <KPI
+                        label="🏦 Treasury Balance"
+                        value={treasuryBalance}
+                        symbol="SMR"
+                      />
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 4,
+                      flexWrap: "wrap",
+                      mb: 4,
+                    }}
+                  >
+                    <Box sx={{ flex: 1 }}>
+                      <KPI
+                        label=" Claimable rewards"
+                        value={rewards}
+                        symbol="SMR"
+                      />
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          position: "position",
+                        }}
+                      >
+                        {Number(rewards) > 0 && (
+                          <Button
+                            sx={{
+                              width: "50%",
+                            }}
+                            variant="contained"
+                            color="primary"
+                            onClick={() => claimRewards()}
+                          >
+                            Claim Rewards
+                          </Button>
+                        )}
+                      </Box>
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <KPI
+                        label="Your Next estimated rewards"
+                        value={calculateReward().toString()}
+                        symbol="SMR"
+                      />
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 4,
+                      flexWrap: "wrap",
+                      mb: 4,
+                    }}
+                  >
+                    <Typography variant="h5" gutterBottom>
+                      💰 How it works
+                    </Typography>
+
+                    <Typography variant="body1" gutterBottom>
+                      Every time SMR tokens dance into the EGG-osystem, they
+                      feed into the grand treasury.
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      A whopping <strong>80%</strong> of this glistening trove
+                      is graciously shared amongst the{" "}
+                      <strong>active players</strong>, raining down on them
+                      daily. But, the benevolence doesn't stop there! Retains a
+                      precious <strong>20%</strong>, which is then elegantly
+                      divided:
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      <ul>
+                        <li>
+                          🎮 Half is channeled into the game's{" "}
+                          <strong>Development Treasury</strong> ensuring the
+                          world of EGG-osystem keeps evolving.
+                        </li>
+                        <li>
+                          🌍 The other half seeds the{" "}
+                          <strong>Community Treasury</strong>, which not only
+                          fuels the game but also breathes life into real-world
+                          sustainable farm projects. Because here here, fantasy
+                          meets reality and we all do a positive impact on the
+                          world.
+                        </li>
+                      </ul>
+                    </Typography>
+                  </Box>
+                </>
               )}
             </>
           )}
