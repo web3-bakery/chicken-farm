@@ -16,10 +16,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>🐔 Chicken Farm</title>
+        <title>Chicken Farm</title>
         <meta name="description" content="Play the new web3 game!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Base>
         <Container maxWidth="md">
