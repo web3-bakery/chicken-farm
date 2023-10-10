@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[906],{1474:function(n,_,e){(window.__NEXT_P=window.__NEXT_P||[]).push(["/market/components/MarketItems",function(){return e(7191)}])}},function(n){n.O(0,[881,146,408,774,888,179],function(){return n(n.s=1474)}),_N_E=n.O()}]);
