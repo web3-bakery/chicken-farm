@@ -7,6 +7,8 @@ import { Header } from "../components/Header";
 import { useRouter } from "next/router";
 import ProviderExample from "../components/web3/components/ProviderExample";
 
+import { NetworkStatusCard } from "../components/web3/components/NetworkStatusCard";
+
 interface Props {
   hero?: React.ReactNode;
   children: React.ReactNode;
@@ -25,6 +27,7 @@ const Base: React.FC<Props> = ({ children, hero }) => {
         <Header />
         {hero}
         {children}
+        <NetworkStatusCard />
       </Box>
     </main>
   );
