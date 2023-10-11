@@ -77,12 +77,20 @@ const ChickenListItem: React.FC<ChickenListItemProps> = ({
         </Box>
       ) : (
         <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
-          <EggMinter chicken={chicken} onMintEgg={onMintEgg} />
-          <EggHatcher
-            chicken={chicken}
-            provider={provider}
-            onHatchEgg={onHatchEgg}
-          />
+          {chicken.isAlive ? (
+            <>
+              <EggMinter chicken={chicken} onMintEgg={onMintEgg} />
+              <EggHatcher
+                chicken={chicken}
+                provider={provider}
+                onHatchEgg={onHatchEgg}
+              />
+            </>
+          ) : (
+            <Typography variant="caption">
+              This chicken will rest in peace.
+            </Typography>
+          )}
         </Box>
       )}
     </Box>
