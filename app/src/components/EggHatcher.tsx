@@ -13,7 +13,13 @@ import NftContract from "../contracts/ChickenNFT.json";
 import EGGSContract from "../contracts/EGGS.json";
 import moment from "moment";
 
-const EggHatcher = ({ chicken, isLoading, provider, onHatchEgg }: any) => {
+const EggHatcher = ({
+  chicken,
+  isLoading,
+  provider,
+  onHatchEgg,
+  account,
+}: any) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,11 +41,21 @@ const EggHatcher = ({ chicken, isLoading, provider, onHatchEgg }: any) => {
         EGGSContract.abi,
         provider.getSigner()
       );
-      const tx = await eggsContract.approve(
-        NftContract.address,
-        ethers.utils.parseEther("1")
+
+      // Check if the NFT contract has been approved to spend our tokens
+      const allowance = await eggsContract.allowance(
+        account,
+        NftContract.address
       );
-      await tx.wait();
+
+      if (allowance.lt(ethers.utils.parseEther("1"))) {
+        // Approve the NFT contract to spend our tokens
+        const tx = await eggsContract.approve(
+          NftContract.address,
+          ethers.utils.parseEther("1")
+        );
+        await tx.wait();
+      }
 
       let res = await nftContract.hatchEgg(chicken.tokenId, {
         gasLimit: 5000000,

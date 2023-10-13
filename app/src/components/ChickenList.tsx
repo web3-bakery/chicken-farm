@@ -107,6 +107,7 @@ const ChickenList: React.FC<ChickenListProps> = ({ provider, account }) => {
               onMintEgg={() => handleMintEgg(chicken.tokenId)}
               onHatchEgg={() => handleHatchEgg(chicken.tokenId)}
               provider={provider}
+              account={account}
             />
           ))
         ) : (

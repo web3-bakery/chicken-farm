@@ -38,11 +38,23 @@ const MintChicken = ({ provider, account, onChickenMinted }: any) => {
         EGGSContract.abi,
         signer
       );
-      const tx = await eggsContract.approve(
-        NftContract.address,
-        ethers.utils.parseEther("1")
+
+      // Check if the NFT contract has been approved to spend our tokens
+      const allowance = await eggsContract.allowance(
+        account,
+        NftContract.address
       );
-      await tx.wait();
+
+      if (allowance.lt(ethers.utils.parseEther("1"))) {
+        setMessage(`Please approve the NFT contract to spend your tokens`);
+        // Approve the NFT contract to spend our tokens
+        const tx = await eggsContract.approve(
+          NftContract.address,
+          ethers.utils.parseEther("1")
+        );
+        await tx.wait();
+      }
+
       const result = await nftContract.createChicken({
         gasLimit: 5000000,
         value: ethers.utils.parseEther("10"),

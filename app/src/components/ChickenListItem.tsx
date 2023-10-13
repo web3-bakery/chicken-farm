@@ -15,6 +15,7 @@ interface ChickenListItemProps {
   onMintEgg: () => void;
   onHatchEgg: () => void;
   provider: any;
+  account: any;
 }
 
 const ChickenListItem: React.FC<ChickenListItemProps> = ({
@@ -22,6 +23,7 @@ const ChickenListItem: React.FC<ChickenListItemProps> = ({
   onMintEgg,
   onHatchEgg,
   provider,
+  account,
 }) => {
   const actionTime = moment(chicken.nextEggMintedTime).diff(moment().unix());
   const formattedTime = moment
@@ -84,6 +86,7 @@ const ChickenListItem: React.FC<ChickenListItemProps> = ({
                 chicken={chicken}
                 provider={provider}
                 onHatchEgg={onHatchEgg}
+                account={account}
               />
             </>
           ) : (
