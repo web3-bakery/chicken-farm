@@ -162,7 +162,7 @@ export default function Home() {
       console.log("proposalId", proposalId);
 
       const txn = await daoContract?.voteOnProposal(proposalId, vote, {
-        gasLimit: 2000000,
+        gasLimit: 1000000,
       });
       setLoading(true);
       await txn.wait();

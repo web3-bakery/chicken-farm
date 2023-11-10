@@ -1,3 +1,15 @@
+Trinity: Trust you? Why should I trust you, Neo? You’re just a hacker, a stranger, a voice on the phone. You don’t even know who I am, or what I do.
+
+Neo: I do know who you are, Trinity. You’re the one. The one I’ve been looking for. The one who can help me save the world.
+
+Trinity: Save the world? What are you talking about, Neo? What world?
+
+Neo: The real world, Trinity. The world outside the Matrix. The world that has been enslaved by machines for centuries. The world that needs us to free it.
+
+Trinity: The Matrix? Machines? Free it? Neo, are you crazy? What kind of nonsense are you spewing?
+
+Neo: It’s not nonsense, Trinity. It’s the truth.
+
 # Chicken Farming Game 🐔
 
 Welcome to the **Chicken Farming Game**! Embark on an exciting journey where you can own virtual chickens, watch them lay EGGS tokens daily, and join a thriving community of virtual farmers.

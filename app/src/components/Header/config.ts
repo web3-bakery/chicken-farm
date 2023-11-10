@@ -12,8 +12,8 @@ export const Treasury = {
   href: "/treasury",
 };
 export const Info = {
-  label: "Info",
-  href: "/info",
+  label: "Auctions",
+  href: "/auction",
 };
 
 export const Profile = {

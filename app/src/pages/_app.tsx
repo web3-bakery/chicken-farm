@@ -8,6 +8,7 @@ import "../styles/globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ProviderExample from "../components/web3/components/ProviderExample";
+import { NotificationProvider } from "../context/NotificationContext";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={THEME}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Component {...pageProps} />
+        <NotificationProvider>
+          <Component {...pageProps} />
+        </NotificationProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
