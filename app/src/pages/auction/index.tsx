@@ -1,3 +1,5 @@
+// NOT READY
+
 import { ethers } from "ethers";
 import AuctionBox from "../../components/Auction/AuctionBox";
 import { hooks, metaMask } from "../../components/web3/connectors/metaMask";

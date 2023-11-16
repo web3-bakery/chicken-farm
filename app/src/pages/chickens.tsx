@@ -1,3 +1,6 @@
+// TO BE DEPRECATED
+// WILL BE REPLACED BY INVENTORY
+
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Box, Container, Typography, Tooltip } from "@mui/material";

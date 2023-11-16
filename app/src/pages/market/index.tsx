@@ -1,3 +1,5 @@
+// NOT READY
+
 import React, { useEffect, useState } from "react";
 
 import { ethers } from "ethers";
@@ -17,12 +19,11 @@ import { GAMES } from "../../mocks/games";
 
 declare var window: any;
 declare var ethereum: any;
-const Market = ({provider, account}: any) => {
-
+const Market = ({ provider, account }: any) => {
   const [nfts, setNfts] = useState([]);
 
   // TODO: Load all the NFTs from the contract
-  const data: any = []
+  const data: any = [];
 
   useEffect(() => {}, []);
 
@@ -89,8 +90,9 @@ const Market = ({provider, account}: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Base hero={<Hero image={GAMES[0].image} />}>
-        
-        {account && <SellProduct nfts={data} createMarketItem={createMarketItem} />}
+        {account && (
+          <SellProduct nfts={data} createMarketItem={createMarketItem} />
+        )}
         {account && <MarketItems />}
       </Base>
     </>

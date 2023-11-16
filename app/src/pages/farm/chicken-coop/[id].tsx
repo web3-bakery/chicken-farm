@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import { Box, Typography, Container, Button } from "@mui/material";
 import Head from "next/head";
-import Base from "../../layouts/Base";
+import Base from "../../../layouts/Base";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 
-import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
-import useChickenCoopDetail from "../../hooks/useChickenCoopDetail";
-import AddChicken from "../../components/chicken-coop/AddChicken";
-import ChickenCard from "../../components/farm/ChickenCard";
-import useContract from "../../hooks/useContract";
-import ChickenCoop_CONTRACT from "../../contracts/ChickenCoop.json";
+import { hooks, metaMask } from "../../../components/web3/connectors/metaMask";
+import useChickenCoopDetail from "../../../hooks/useChickenCoopDetail";
+import AddChicken from "../../../components/chicken-coop/AddChicken";
+import ChickenCard from "../../../components/farm/ChickenCard";
+import useContract from "../../../hooks/useContract";
+import ChickenCoop_CONTRACT from "../../../contracts/ChickenCoop.json";
 
 const {
   useChainId,

@@ -1,3 +1,5 @@
+// TO BE DEPRECATED
+
 import { Contract, ethers, providers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import Head from "next/head";

@@ -1,15 +1,17 @@
+// Will become Field Detail page /farm/field/[id]
+
 import React, { useEffect, useState } from "react";
 import { Box, Button, Typography, Grid } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
-import FarmDisplay from "../components/Game/FarmDisplay";
-import Base from "../layouts/Base";
-import CreateNewFarm from "../components/Game/CreateNewFarm";
-import ItemsDisplay from "../components/Game/ItemsDisplay";
+import FarmDisplay from "../../components/Game/FarmDisplay";
+import Base from "../../layouts/Base";
+import CreateNewFarm from "../../components/Game/CreateNewFarm";
+import ItemsDisplay from "../../components/Game/ItemsDisplay";
 
-import { hooks, metaMask } from "../components/web3/connectors/metaMask";
-import KPI from "../components/KPI";
-import UserFarms from "../components/Game/UserFarms";
+import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
+import KPI from "../../components/KPI";
+import UserFarms from "../../components/Game/UserFarms";
 
 const {
   useChainId,

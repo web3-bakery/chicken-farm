@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Box, Container, Typography, Tooltip } from "@mui/material";
-import Base from "../layouts/Base";
-import { hooks, metaMask } from "../components/web3/connectors/metaMask";
-import ChickenCoops from "../components/farm/ChickenCoops";
+import Base from "../../layouts/Base";
+import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
+import ChickenCoops from "../../components/farm/ChickenCoops";
 
 const {
   useChainId,
