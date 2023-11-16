@@ -1,21 +1,25 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract ItemsNFT is ERC1155 {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    uint256 private _nextTokenId;
 
-    enum ItemType { BUILDING, TREE, FIELD }
+    enum ItemType {
+        BUILDING,
+        TREE,
+        FIELD
+    }
     mapping(uint256 => ItemType) public items;
 
     constructor() ERC1155("https://myapi.com/api/token/{id}.json") {}
 
-    function createItem(ItemType itemType, uint256 amount) public returns (uint256) {
-        _tokenIds.increment();
-        uint256 newItemId = _tokenIds.current();
+    function createItem(
+        ItemType itemType,
+        uint256 amount
+    ) public returns (uint256) {
+        uint256 newItemId = _nextTokenId++;
 
         items[newItemId] = itemType;
 

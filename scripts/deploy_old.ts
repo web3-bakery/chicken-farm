@@ -2,10 +2,7 @@ import { ethers } from "hardhat";
 const { copyContractArtifacts } = require("./copyArtifacts");
 
 async function main() {
-  const [owner] = await ethers.getSigners();
-
-  console.log("owner.address: ", owner.address);
-  const eggs = await ethers.deployContract("ChickenEggNFT", [owner.address]);
+  const eggs = await ethers.deployContract("EGGS");
 
   await eggs.waitForDeployment();
 
@@ -13,20 +10,18 @@ async function main() {
   const devTreasury = "0x23985e738c74a809EdE411C5cb944efbcE3139F2";
 
   console.log(`EGGS deployed to ${eggs.target}`);
-
   const chickens = await ethers.deployContract("ChickenNFT", [
-    owner.address,
     eggs.target,
     marketingTreasury,
     devTreasury,
   ]);
 
-  // await chickens.waitForDeployment();
+  await chickens.waitForDeployment();
 
   console.log(`ChickenNFT deployed to ${chickens.target}`);
 
   copyContractArtifacts({
-    ChickenEggNFT: eggs.target,
+    EGGS: eggs.target,
     ChickenNFT: chickens.target,
     // Add more contracts here as needed
   });

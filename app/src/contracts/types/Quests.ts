@@ -27,39 +27,14 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export declare namespace Quests {
-  export type PlayerStruct = {
-    user: PromiseOrValue<string>;
-    points: PromiseOrValue<BigNumberish>;
-  };
-
-  export type PlayerStructOutput = [string, BigNumber] & {
-    user: string;
-    points: BigNumber;
-  };
-}
-
 export interface QuestsInterface extends utils.Interface {
   functions: {
     "canSolveQuest(uint256)": FunctionFragment;
-    "checkIsAdminLogged(address)": FunctionFragment;
-    "checkIsUserLogged(address)": FunctionFragment;
     "completeQuest(uint256)": FunctionFragment;
     "createQuest(string,uint256,address,uint256)": FunctionFragment;
     "deleteQuest(uint256)": FunctionFragment;
-    "eggsAddress()": FunctionFragment;
-    "getAdminBalance(address)": FunctionFragment;
-    "getTop10Players()": FunctionFragment;
-    "iotabotsAddress()": FunctionFragment;
-    "leaderboard(uint256)": FunctionFragment;
-    "loginAdmin(address,string)": FunctionFragment;
-    "loginUser(address,string)": FunctionFragment;
-    "logoutAdmin(address)": FunctionFragment;
-    "logoutUser(address)": FunctionFragment;
     "nextQuestId()": FunctionFragment;
     "quests(uint256)": FunctionFragment;
-    "registerAdmin(address,string,string,string)": FunctionFragment;
-    "registerUser(address,string,string,string)": FunctionFragment;
     "updateQuest(uint256,string,uint256,address,uint256,bool)": FunctionFragment;
     "userPoints(address)": FunctionFragment;
     "userQuestCompletion(address,uint256)": FunctionFragment;
@@ -68,24 +43,11 @@ export interface QuestsInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "canSolveQuest"
-      | "checkIsAdminLogged"
-      | "checkIsUserLogged"
       | "completeQuest"
       | "createQuest"
       | "deleteQuest"
-      | "eggsAddress"
-      | "getAdminBalance"
-      | "getTop10Players"
-      | "iotabotsAddress"
-      | "leaderboard"
-      | "loginAdmin"
-      | "loginUser"
-      | "logoutAdmin"
-      | "logoutUser"
       | "nextQuestId"
       | "quests"
-      | "registerAdmin"
-      | "registerUser"
       | "updateQuest"
       | "userPoints"
       | "userQuestCompletion"
@@ -94,14 +56,6 @@ export interface QuestsInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "canSolveQuest",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkIsAdminLogged",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkIsUserLogged",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "completeQuest",
@@ -121,66 +75,12 @@ export interface QuestsInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "eggsAddress",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAdminBalance",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getTop10Players",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "iotabotsAddress",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "leaderboard",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "loginAdmin",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "loginUser",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "logoutAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "logoutUser",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "nextQuestId",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "quests",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "registerAdmin",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "registerUser",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
   ): string;
   encodeFunctionData(
     functionFragment: "updateQuest",
@@ -207,14 +107,6 @@ export interface QuestsInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "checkIsAdminLogged",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "checkIsUserLogged",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "completeQuest",
     data: BytesLike
   ): Result;
@@ -227,45 +119,10 @@ export interface QuestsInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "eggsAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAdminBalance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getTop10Players",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "iotabotsAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "leaderboard",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "loginAdmin", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "loginUser", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "logoutAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "logoutUser", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "nextQuestId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "quests", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "registerAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "registerUser",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "updateQuest",
     data: BytesLike
@@ -277,58 +134,17 @@ export interface QuestsInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "AdminLoggedIn(address)": EventFragment;
-    "AdminLoggedOut(address)": EventFragment;
-    "AdminRegistered(address,string,string)": EventFragment;
     "QuestCompleted(uint256,address)": EventFragment;
     "QuestCreated(uint256,string,uint256,address,uint256)": EventFragment;
     "QuestDeleted(uint256)": EventFragment;
     "QuestUpdated(uint256,string,uint256,address,uint256,bool)": EventFragment;
-    "UserLoggedIn(address)": EventFragment;
-    "UserLoggedOut(address)": EventFragment;
-    "UserRegistered(address,string,string)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "AdminLoggedIn"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "AdminLoggedOut"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "AdminRegistered"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "QuestCompleted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "QuestCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "QuestDeleted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "QuestUpdated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UserLoggedIn"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UserLoggedOut"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UserRegistered"): EventFragment;
 }
-
-export interface AdminLoggedInEventObject {
-  admin: string;
-}
-export type AdminLoggedInEvent = TypedEvent<[string], AdminLoggedInEventObject>;
-
-export type AdminLoggedInEventFilter = TypedEventFilter<AdminLoggedInEvent>;
-
-export interface AdminLoggedOutEventObject {
-  admin: string;
-}
-export type AdminLoggedOutEvent = TypedEvent<
-  [string],
-  AdminLoggedOutEventObject
->;
-
-export type AdminLoggedOutEventFilter = TypedEventFilter<AdminLoggedOutEvent>;
-
-export interface AdminRegisteredEventObject {
-  admin: string;
-  name: string;
-  ipfsImageHash: string;
-}
-export type AdminRegisteredEvent = TypedEvent<
-  [string, string, string],
-  AdminRegisteredEventObject
->;
-
-export type AdminRegisteredEventFilter = TypedEventFilter<AdminRegisteredEvent>;
 
 export interface QuestCompletedEventObject {
   questId: BigNumber;
@@ -380,32 +196,6 @@ export type QuestUpdatedEvent = TypedEvent<
 
 export type QuestUpdatedEventFilter = TypedEventFilter<QuestUpdatedEvent>;
 
-export interface UserLoggedInEventObject {
-  user: string;
-}
-export type UserLoggedInEvent = TypedEvent<[string], UserLoggedInEventObject>;
-
-export type UserLoggedInEventFilter = TypedEventFilter<UserLoggedInEvent>;
-
-export interface UserLoggedOutEventObject {
-  user: string;
-}
-export type UserLoggedOutEvent = TypedEvent<[string], UserLoggedOutEventObject>;
-
-export type UserLoggedOutEventFilter = TypedEventFilter<UserLoggedOutEvent>;
-
-export interface UserRegisteredEventObject {
-  user: string;
-  name: string;
-  ipfsImageHash: string;
-}
-export type UserRegisteredEvent = TypedEvent<
-  [string, string, string],
-  UserRegisteredEventObject
->;
-
-export type UserRegisteredEventFilter = TypedEventFilter<UserRegisteredEvent>;
-
 export interface Quests extends BaseContract {
   contractName: "Quests";
 
@@ -440,16 +230,6 @@ export interface Quests extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    checkIsAdminLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, string]>;
-
-    checkIsUserLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, string]>;
-
     completeQuest(
       questId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -468,46 +248,6 @@ export interface Quests extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    eggsAddress(overrides?: CallOverrides): Promise<[string]>;
-
-    getAdminBalance(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    getTop10Players(
-      overrides?: CallOverrides
-    ): Promise<[Quests.PlayerStructOutput[]]>;
-
-    iotabotsAddress(overrides?: CallOverrides): Promise<[string]>;
-
-    leaderboard(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string, BigNumber] & { user: string; points: BigNumber }>;
-
-    loginAdmin(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    loginUser(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    logoutAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    logoutUser(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     nextQuestId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     quests(
@@ -523,22 +263,6 @@ export interface Quests extends BaseContract {
         active: boolean;
       }
     >;
-
-    registerAdmin(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    registerUser(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     updateQuest(
       questId: PromiseOrValue<BigNumberish>,
@@ -567,16 +291,6 @@ export interface Quests extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  checkIsAdminLogged(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<[boolean, string]>;
-
-  checkIsUserLogged(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<[boolean, string]>;
-
   completeQuest(
     questId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -595,46 +309,6 @@ export interface Quests extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  eggsAddress(overrides?: CallOverrides): Promise<string>;
-
-  getAdminBalance(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  getTop10Players(
-    overrides?: CallOverrides
-  ): Promise<Quests.PlayerStructOutput[]>;
-
-  iotabotsAddress(overrides?: CallOverrides): Promise<string>;
-
-  leaderboard(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<[string, BigNumber] & { user: string; points: BigNumber }>;
-
-  loginAdmin(
-    _address: PromiseOrValue<string>,
-    _password: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  loginUser(
-    _address: PromiseOrValue<string>,
-    _password: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  logoutAdmin(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  logoutUser(
-    _address: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   nextQuestId(overrides?: CallOverrides): Promise<BigNumber>;
 
   quests(
@@ -650,22 +324,6 @@ export interface Quests extends BaseContract {
       active: boolean;
     }
   >;
-
-  registerAdmin(
-    _address: PromiseOrValue<string>,
-    _name: PromiseOrValue<string>,
-    _password: PromiseOrValue<string>,
-    _ipfsImageHash: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  registerUser(
-    _address: PromiseOrValue<string>,
-    _name: PromiseOrValue<string>,
-    _password: PromiseOrValue<string>,
-    _ipfsImageHash: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   updateQuest(
     questId: PromiseOrValue<BigNumberish>,
@@ -694,16 +352,6 @@ export interface Quests extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    checkIsAdminLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, string]>;
-
-    checkIsUserLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean, string]>;
-
     completeQuest(
       questId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -722,46 +370,6 @@ export interface Quests extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    eggsAddress(overrides?: CallOverrides): Promise<string>;
-
-    getAdminBalance(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getTop10Players(
-      overrides?: CallOverrides
-    ): Promise<Quests.PlayerStructOutput[]>;
-
-    iotabotsAddress(overrides?: CallOverrides): Promise<string>;
-
-    leaderboard(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string, BigNumber] & { user: string; points: BigNumber }>;
-
-    loginAdmin(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    loginUser(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    logoutAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    logoutUser(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     nextQuestId(overrides?: CallOverrides): Promise<BigNumber>;
 
     quests(
@@ -777,22 +385,6 @@ export interface Quests extends BaseContract {
         active: boolean;
       }
     >;
-
-    registerAdmin(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    registerUser(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
 
     updateQuest(
       questId: PromiseOrValue<BigNumberish>,
@@ -817,31 +409,6 @@ export interface Quests extends BaseContract {
   };
 
   filters: {
-    "AdminLoggedIn(address)"(
-      admin?: PromiseOrValue<string> | null
-    ): AdminLoggedInEventFilter;
-    AdminLoggedIn(
-      admin?: PromiseOrValue<string> | null
-    ): AdminLoggedInEventFilter;
-
-    "AdminLoggedOut(address)"(
-      admin?: PromiseOrValue<string> | null
-    ): AdminLoggedOutEventFilter;
-    AdminLoggedOut(
-      admin?: PromiseOrValue<string> | null
-    ): AdminLoggedOutEventFilter;
-
-    "AdminRegistered(address,string,string)"(
-      admin?: PromiseOrValue<string> | null,
-      name?: null,
-      ipfsImageHash?: null
-    ): AdminRegisteredEventFilter;
-    AdminRegistered(
-      admin?: PromiseOrValue<string> | null,
-      name?: null,
-      ipfsImageHash?: null
-    ): AdminRegisteredEventFilter;
-
     "QuestCompleted(uint256,address)"(
       questId?: PromiseOrValue<BigNumberish> | null,
       user?: PromiseOrValue<string> | null
@@ -889,44 +456,11 @@ export interface Quests extends BaseContract {
       requiredTokenAmount?: null,
       active?: null
     ): QuestUpdatedEventFilter;
-
-    "UserLoggedIn(address)"(
-      user?: PromiseOrValue<string> | null
-    ): UserLoggedInEventFilter;
-    UserLoggedIn(user?: PromiseOrValue<string> | null): UserLoggedInEventFilter;
-
-    "UserLoggedOut(address)"(
-      user?: PromiseOrValue<string> | null
-    ): UserLoggedOutEventFilter;
-    UserLoggedOut(
-      user?: PromiseOrValue<string> | null
-    ): UserLoggedOutEventFilter;
-
-    "UserRegistered(address,string,string)"(
-      user?: PromiseOrValue<string> | null,
-      name?: null,
-      ipfsImageHash?: null
-    ): UserRegisteredEventFilter;
-    UserRegistered(
-      user?: PromiseOrValue<string> | null,
-      name?: null,
-      ipfsImageHash?: null
-    ): UserRegisteredEventFilter;
   };
 
   estimateGas: {
     canSolveQuest(
       questId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    checkIsAdminLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    checkIsUserLogged(
-      _address: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -948,65 +482,11 @@ export interface Quests extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    eggsAddress(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getAdminBalance(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getTop10Players(overrides?: CallOverrides): Promise<BigNumber>;
-
-    iotabotsAddress(overrides?: CallOverrides): Promise<BigNumber>;
-
-    leaderboard(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    loginAdmin(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    loginUser(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    logoutAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    logoutUser(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     nextQuestId(overrides?: CallOverrides): Promise<BigNumber>;
 
     quests(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    registerAdmin(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    registerUser(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     updateQuest(
@@ -1037,16 +517,6 @@ export interface Quests extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    checkIsAdminLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    checkIsUserLogged(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     completeQuest(
       questId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1065,65 +535,11 @@ export interface Quests extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    eggsAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getAdminBalance(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getTop10Players(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    iotabotsAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    leaderboard(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    loginAdmin(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    loginUser(
-      _address: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    logoutAdmin(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    logoutUser(
-      _address: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     nextQuestId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     quests(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    registerAdmin(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    registerUser(
-      _address: PromiseOrValue<string>,
-      _name: PromiseOrValue<string>,
-      _password: PromiseOrValue<string>,
-      _ipfsImageHash: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     updateQuest(

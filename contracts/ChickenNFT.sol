@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-import "./EGGS.sol";
+import "./ChickenEggNFT.sol";
 
 contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
-    using Counters for Counters.Counter;
+    uint256 private _nextTokenId;
 
     // Constants:
     uint256 public constant CREATION_COST = 10 ether;
@@ -35,30 +34,31 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         uint256 birthTime;
         uint256 nextEggMintedTime;
         uint256 level;
+        uint256 happinessLevel;
         bool isDead;
     }
 
-    Counters.Counter private _tokenIdCounter;
-    EGGS public eggsToken;
+    ChickenEggNFT public eggsNFT;
     mapping(uint256 => Chicken) public chickens;
     uint256[] public aliveChickens;
     mapping(uint256 => uint256) public chickenIndices;
     mapping(address => uint256) public pendingRewards;
 
     // uint256 public eggMintLockTime = 1 days;
-    uint256 public eggMintLockTime = 1 hours;
+    uint256 public eggMintLockTime = 1 minutes;
 
     // uint256 public cycleDuration = 1 days;
-    uint256 public cycleDuration = 3 hours;
+    uint256 public cycleDuration = 3 minutes;
 
     uint256 public nextCycleTimestamp = block.timestamp + cycleDuration;
 
     constructor(
-        address _eggsToken,
+        address initialOwner,
+        address _eggsNFT,
         address payable _marketingTreasury,
         address payable _developmentTreasury
-    ) ERC721("ChickenNFT", "CHICKEN") {
-        eggsToken = EGGS(_eggsToken);
+    ) Ownable(initialOwner) ERC721("ChickenNFT", "CHICKEN") {
+        eggsNFT = ChickenEggNFT(_eggsNFT);
         marketingTreasury = _marketingTreasury;
         developmentTreasury = _developmentTreasury;
     }
@@ -68,20 +68,15 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
             msg.value == CREATION_COST,
             "Cost for creating a chicken is 10 SMR"
         );
-        require(
-            eggsToken.balanceOf(msg.sender) >= 1,
-            "Need 1 EGGS token to create chicken"
-        );
 
-        eggsToken.burnFrom(msg.sender, 1 * 10 ** 18);
         treasury += msg.value; // Add to treasury
 
         _createChicken();
     }
 
     function _createChicken() private returns (uint256) {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = _nextTokenId++;
+
         _mint(msg.sender, tokenId);
 
         Chicken memory newChicken = Chicken({
@@ -92,6 +87,7 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
             birthTime: block.timestamp,
             nextEggMintedTime: block.timestamp + eggMintLockTime,
             level: 0,
+            happinessLevel: 0,
             isDead: false
         });
 
@@ -111,10 +107,22 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         );
         chickens[tokenId].nextEggMintedTime = block.timestamp + eggMintLockTime;
         chickens[tokenId].level = chickens[tokenId].level + 1;
-        eggsToken.mint(msg.sender, 1 * 10 ** 18);
+        eggsNFT.mintEgg(
+            msg.sender,
+            chickens[tokenId].happinessLevel,
+            chickens[tokenId].birthTime
+        );
         emit EggMinted(msg.sender, tokenId);
         checkAlive(tokenId); // This function could mark the chicken as dead
     }
+
+    // Chicken in real live is alive for 5-10 years on average.
+    // In our game, 1 year are 7 dyas in the real world.
+    // So we'll say that a chicken is alive for 35-70 days on average.
+    // A chicken can lay an golden egg under the following conditions:
+    // - The chicken is alive
+    // - The chicken is at least 50 days old
+    // - The chicken is very happy (has a happiness level of 5)
 
     // checks if the chicken is already marked as dead. If not, it calculates the number of days the chicken has been alive
     // The probability starts at 10% and increases by 10% for every day the chicken is alive, up to a maximum of 100%.
@@ -144,48 +152,42 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
 
     // function to allow users to hatch an egg if they own a chicken
-    function hatchEgg(uint256 tokenId) external {
-        // We'll use the same logic as mintEgg to check for eligibility
-        require(ownerOf(tokenId) == msg.sender, "You do not own this chicken");
-        require(!chickens[tokenId].isDead, "Chicken has passed away");
+    // function hatchEgg(uint256 tokenId) external {
+    //     // We'll use the same logic as mintEgg to check for eligibility
+    //     require(ownerOf(tokenId) == msg.sender, "You do not own this chicken");
+    //     require(!chickens[tokenId].isDead, "Chicken has passed away");
 
-        require(
-            block.timestamp > chickens[tokenId].nextEggMintedTime,
-            "Chicken is not ready to hatch an egg"
-        );
+    //     require(
+    //         block.timestamp > chickens[tokenId].nextEggMintedTime,
+    //         "Chicken is not ready to hatch an egg"
+    //     );
 
-        require(
-            eggsToken.balanceOf(msg.sender) >= 1,
-            "Need 1 EGGS token to create chicken"
-        );
+    //     require(
+    //         eggsNFT.balanceOf(msg.sender) >= 1,
+    //         "Need 1 EGGS token to create chicken"
+    //     );
 
-        eggsToken.burnFrom(msg.sender, 1 * 10 ** 18);
+    //     eggsNFT.burnFrom(msg.sender, 1 * 10 ** 18);
 
-        // Set the lastEggMintedTime to 3 days in the future
-        chickens[tokenId].nextEggMintedTime =
-            block.timestamp +
-            (3 * eggMintLockTime);
+    //     // Set the lastEggMintedTime to 3 days in the future
+    //     chickens[tokenId].nextEggMintedTime =
+    //         block.timestamp +
+    //         (3 * eggMintLockTime);
 
-        uint256 newChickenTokenId = _createChicken();
-        emit EggHatched(msg.sender, newChickenTokenId); // Assuming you return the new token ID from _createChicken() or manage it differently.
-    }
+    //     uint256 newChickenTokenId = _createChicken();
+    //     emit EggHatched(msg.sender, newChickenTokenId); // Assuming you return the new token ID from _createChicken() or manage it differently.
+    // }
 
     function randomAttribute(uint256 salt) private view returns (uint256) {
         return
             (uint256(
-                keccak256(
-                    abi.encodePacked(
-                        block.timestamp,
-                        _tokenIdCounter.current(),
-                        salt
-                    )
-                )
+                keccak256(abi.encodePacked(block.timestamp, _nextTokenId, salt))
             ) % 10) + 1;
     }
 
     // If we want to udüate the ChickenNFT contract, we can transfer the EGGS ownership to a new contract
     function transferEggsOwnership(address newOwner) external onlyOwner {
-        eggsToken.transferOwnership(newOwner);
+        eggsNFT.transferOwnership(newOwner);
         emit EggsOwnershipTransferred(newOwner); // This could also be managed by the EGGS contract itself.
     }
 

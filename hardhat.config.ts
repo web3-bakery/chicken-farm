@@ -1,12 +1,14 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
-import * as dotenv from "dotenv";
+const { HardhatUserConfig } = require("hardhat/config");
+require("@nomicfoundation/hardhat-toolbox");
+
+const dotenv = require("dotenv");
 dotenv.config();
 
-const privateKey = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : []
+const privateKey =
+  process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 
-const config: HardhatUserConfig = {
-  solidity: "0.8.19",
+const config = {
+  solidity: "0.8.20",
   networks: {
     ShimmerEVMTestnet: {
       url: "https://json-rpc.evm.testnet.shimmer.network/",
@@ -22,7 +24,7 @@ const config: HardhatUserConfig = {
       timeout: 120000,
       blockGasLimit: 100000000429720,
     },
-  }
+  },
 };
 
-export default config;
+module.exports = config;

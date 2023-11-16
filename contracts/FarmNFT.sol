@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract FarmNFT is ERC721Enumerable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    uint256 private _nextTokenId;
 
     struct Farm {
         uint256 size;
@@ -18,8 +16,8 @@ contract FarmNFT is ERC721Enumerable {
     constructor() ERC721("FarmNFT", "FARM") {}
 
     function initializeFarm() public returns (uint256) {
-        _tokenIds.increment();
-        uint256 newFarmId = _tokenIds.current();
+        uint256 newFarmId = _nextTokenId++;
+
         uint256 randomSize = _randomSize();
 
         farms[newFarmId] = Farm({

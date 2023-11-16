@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
@@ -91,7 +91,10 @@ contract ChickenDAO is Ownable {
     // Create a payable constructor which initializes the contract
     // instances for FakeNFTMarketplace and ChickenNFT
     // The payable allows this constructor to accept an ETH deposit when it is being deployed
-    constructor(address _chickenNFT) {
+    constructor(
+        address initialOwner,
+        address _chickenNFT
+    ) Ownable(initialOwner) {
         chickenNFT = IChickenNFT(_chickenNFT);
     }
 
