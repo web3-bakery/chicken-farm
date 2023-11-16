@@ -21,13 +21,23 @@ async function main() {
     devTreasury,
   ]);
 
-  // await chickens.waitForDeployment();
+  await chickens.waitForDeployment();
 
   console.log(`ChickenNFT deployed to ${chickens.target}`);
+
+  const chickenCoop = await ethers.deployContract("ChickenCoop", [
+    owner.address,
+    chickens.target,
+  ]);
+
+  await chickenCoop.waitForDeployment();
+
+  console.log(`ChickenCoop deployed to ${chickenCoop.target}`);
 
   copyContractArtifacts({
     ChickenEggNFT: eggs.target,
     ChickenNFT: chickens.target,
+    ChickenCoop: chickenCoop.target,
     // Add more contracts here as needed
   });
 }

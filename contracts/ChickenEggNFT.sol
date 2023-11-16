@@ -24,7 +24,7 @@ contract ChickenEggNFT is ERC721Enumerable, Ownable {
         address to,
         uint256 happinessLevel,
         uint256 birthTime
-    ) public onlyOwner {
+    ) public {
         uint256 tokenId = _nextTokenId++;
 
         _mint(to, tokenId);

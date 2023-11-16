@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 interface IChickenNFT {
     function ownerOf(uint256 tokenId) external view returns (address);
@@ -25,10 +26,10 @@ interface IChickenNFT {
             bool isDead
         );
 
-    function mintEgg(uint256 chickenId) external;
+    function mintEgg(uint256 chickenId, address to) external;
 }
 
-contract ChickenCoop is ERC721, Ownable {
+contract ChickenCoop is ERC721, ERC721Enumerable, Ownable {
     uint256 public coopLevelCost = 10 ether;
     uint256 public mintCost = 10 ether;
     uint256 public UPGRADE_COST = 10 ether;
@@ -56,7 +57,7 @@ contract ChickenCoop is ERC721, Ownable {
     }
 
     // Minting function for ChickenCoop NFT
-    function mintCoop() external payable {
+    function buy() external payable {
         require(msg.value == mintCost, "Minting cost is 10 SMR");
         _safeMint(msg.sender, nextTokenId);
 
@@ -134,7 +135,7 @@ contract ChickenCoop is ERC721, Ownable {
             // Check if the chicken is ready to mint an egg
             if (block.timestamp > nextEggMintedTime) {
                 // Call mintEgg function from ChickenNFT contract
-                chickenNFTContract.mintEgg(chickenId);
+                chickenNFTContract.mintEgg(chickenId, ownerOf(coopId));
             }
         }
     }
@@ -149,6 +150,20 @@ contract ChickenCoop is ERC721, Ownable {
         coop.level++;
     }
 
+    // Function to check if a coop exists
+    function doesCoopExist(uint256 coopId) public view returns (bool) {
+        // Assuming a coop doesn't exist if its level is 0
+        return coops[coopId].level > 0;
+    }
+
+    function getChickensInCoop(
+        uint256 coopId
+    ) public view returns (uint256[] memory) {
+        require(doesCoopExist(coopId), "Coop does not exist");
+
+        return coops[coopId].chickens;
+    }
+
     // Function to withdraw Ether from the contract
     function withdraw() external onlyOwner {
         uint256 balance = address(this).balance;
@@ -156,5 +171,28 @@ contract ChickenCoop is ERC721, Ownable {
 
         (bool success, ) = payable(owner()).call{value: balance}("");
         require(success, "Withdrawal failed");
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Enumerable) returns (address) {
+        return super._update(to, tokenId, auth);
+    }
+
+    function _increaseBalance(
+        address account,
+        uint128 value
+    ) internal override(ERC721, ERC721Enumerable) {
+        super._increaseBalance(account, value);
+    }
+
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721Enumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }

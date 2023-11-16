@@ -63,7 +63,7 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         developmentTreasury = _developmentTreasury;
     }
 
-    function createChicken() external payable {
+    function buy() external payable {
         require(
             msg.value == CREATION_COST,
             "Cost for creating a chicken is 10 SMR"
@@ -98,7 +98,7 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         return tokenId;
     }
 
-    function mintEgg(uint256 tokenId) external {
+    function mintEgg(uint256 tokenId, address to) external {
         require(ownerOf(tokenId) == msg.sender, "You do not own this chicken");
         require(!chickens[tokenId].isDead, "Chicken has passed away");
         require(
@@ -108,11 +108,11 @@ contract ChickenNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         chickens[tokenId].nextEggMintedTime = block.timestamp + eggMintLockTime;
         chickens[tokenId].level = chickens[tokenId].level + 1;
         eggsNFT.mintEgg(
-            msg.sender,
+            to,
             chickens[tokenId].happinessLevel,
             chickens[tokenId].birthTime
         );
-        emit EggMinted(msg.sender, tokenId);
+        emit EggMinted(to, tokenId);
         checkAlive(tokenId); // This function could mark the chicken as dead
     }
 

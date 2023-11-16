@@ -9,17 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "_eggsNFT",
-          "type": "address"
-        },
-        {
-          "internalType": "address payable",
-          "name": "_marketingTreasury",
-          "type": "address"
-        },
-        {
-          "internalType": "address payable",
-          "name": "_developmentTreasury",
+          "name": "_chickenNFTContract",
           "type": "address"
         }
       ],
@@ -173,11 +163,6 @@
       "type": "error"
     },
     {
-      "inputs": [],
-      "name": "ReentrancyGuardReentrantCall",
-      "type": "error"
-    },
-    {
       "anonymous": false,
       "inputs": [
         {
@@ -233,108 +218,6 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChickenCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "ChickenDied",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "EggHatched",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        }
-      ],
-      "name": "EggMinted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "EggsOwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "nextCycleTimestamp",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "rewardAmount",
-          "type": "uint256"
-        }
-      ],
-      "name": "NewCycleStarted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
           "name": "previousOwner",
           "type": "address"
         },
@@ -346,25 +229,6 @@
         }
       ],
       "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "RewardWithdrawn",
       "type": "event"
     },
     {
@@ -394,7 +258,20 @@
     },
     {
       "inputs": [],
-      "name": "CREATION_COST",
+      "name": "MAX_LEVEL",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "UPGRADE_COST",
       "outputs": [
         {
           "internalType": "uint256",
@@ -409,19 +286,18 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "coopId",
           "type": "uint256"
-        }
-      ],
-      "name": "aliveChickens",
-      "outputs": [
+        },
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "chickenId",
           "type": "uint256"
         }
       ],
-      "stateMutability": "view",
+      "name": "addChickenToCoop",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -472,11 +348,18 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "coopId",
           "type": "uint256"
         }
       ],
-      "name": "chickenIndices",
+      "name": "collectEggsFromCoop",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "coopLevelCost",
       "outputs": [
         {
           "internalType": "uint256",
@@ -495,38 +378,8 @@
           "type": "uint256"
         }
       ],
-      "name": "chickens",
+      "name": "coops",
       "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "attackPower",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "defensePower",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "intelligencePoints",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "speed",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "birthTime",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "nextEggMintedTime",
-          "type": "uint256"
-        },
         {
           "internalType": "uint256",
           "name": "level",
@@ -534,12 +387,26 @@
         },
         {
           "internalType": "uint256",
-          "name": "happinessLevel",
+          "name": "lastCollected",
           "type": "uint256"
-        },
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "coopId",
+          "type": "uint256"
+        }
+      ],
+      "name": "doesCoopExist",
+      "outputs": [
         {
           "internalType": "bool",
-          "name": "isDead",
+          "name": "",
           "type": "bool"
         }
       ],
@@ -548,7 +415,7 @@
     },
     {
       "inputs": [],
-      "name": "cycleDuration",
+      "name": "eggCollectionFrequency",
       "outputs": [
         {
           "internalType": "uint256",
@@ -561,38 +428,12 @@
     },
     {
       "inputs": [],
-      "name": "developmentTreasury",
-      "outputs": [
-        {
-          "internalType": "address payable",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "eggMintLockTime",
+      "name": "eggsPerChicken",
       "outputs": [
         {
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "eggsNFT",
-      "outputs": [
-        {
-          "internalType": "contract ChickenEggNFT",
-          "name": "",
-          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -621,51 +462,16 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "tokenId",
+          "name": "coopId",
           "type": "uint256"
         }
       ],
-      "name": "getChickenDetails",
+      "name": "getChickensInCoop",
       "outputs": [
         {
-          "internalType": "uint256",
-          "name": "attackPower",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "defensePower",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "intelligencePoints",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "speed",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "level",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "nextEggMintedTime",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "birthTime",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "isDead",
-          "type": "bool"
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
         }
       ],
       "stateMutability": "view",
@@ -697,33 +503,15 @@
     },
     {
       "inputs": [],
-      "name": "marketingTreasury",
+      "name": "mintCost",
       "outputs": [
         {
-          "internalType": "address payable",
+          "internalType": "uint256",
           "name": "",
-          "type": "address"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "tokenId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        }
-      ],
-      "name": "mintEgg",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -741,7 +529,7 @@
     },
     {
       "inputs": [],
-      "name": "nextCycleTimestamp",
+      "name": "nextTokenId",
       "outputs": [
         {
           "internalType": "uint256",
@@ -787,20 +575,19 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "pendingRewards",
-      "outputs": [
+          "internalType": "uint256",
+          "name": "coopId",
+          "type": "uint256"
+        },
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "chickenId",
           "type": "uint256"
         }
       ],
-      "stateMutability": "view",
+      "name": "removeChickenFromCoop",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -875,39 +662,6 @@
         }
       ],
       "name": "setApprovalForAll",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address payable",
-          "name": "_developmentTreasury",
-          "type": "address"
-        }
-      ],
-      "name": "setDevelopmentTreasury",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address payable",
-          "name": "_marketingTreasury",
-          "type": "address"
-        }
-      ],
-      "name": "setMarketingTreasury",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "startNewCycle",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -1008,19 +762,6 @@
     },
     {
       "inputs": [],
-      "name": "totalAliveChickens",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
       "name": "totalSupply",
       "outputs": [
         {
@@ -1030,19 +771,6 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferEggsOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -1082,44 +810,25 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "treasury",
-      "outputs": [
+      "inputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "coopId",
           "type": "uint256"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_owner",
-          "type": "address"
-        }
-      ],
-      "name": "walletOfOwner",
-      "outputs": [
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
+      "name": "upgradeCoopLevel",
+      "outputs": [],
+      "stateMutability": "payable",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "withdrawRewards",
+      "name": "withdraw",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
-  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+  "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
 }
