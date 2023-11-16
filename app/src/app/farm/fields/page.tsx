@@ -1,28 +1,18 @@
-// Will become Field Detail page /farm/field/[id]
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography, Grid } from "@mui/material";
-import { useWeb3React } from "@web3-react/core";
-import { ethers } from "ethers";
-import FarmDisplay from "../../components/Game/FarmDisplay";
-import Base from "../../layouts/Base";
-import CreateNewFarm from "../../components/Game/CreateNewFarm";
-import ItemsDisplay from "../../components/Game/ItemsDisplay";
+import { Box, Typography, Grid } from "@mui/material";
+import FarmDisplay from "../../../components/Game/FarmDisplay";
+import Base from "../../../layouts/Base";
+import CreateNewFarm from "../../../components/Game/CreateNewFarm";
+import ItemsDisplay from "../../../components/Game/ItemsDisplay";
 
-import { hooks, metaMask } from "../../components/web3/connectors/metaMask";
-import KPI from "../../components/KPI";
-import UserFarms from "../../components/Game/UserFarms";
+import { hooks } from "../../../components/web3/connectors/metaMask";
+import UserFarms from "../../../components/Game/UserFarms";
 
-const {
-  useChainId,
-  useAccounts,
-  useIsActivating,
-  useIsActive,
-  useProvider,
-  useENSNames,
-} = hooks;
+const { useAccounts, useIsActive, useProvider } = hooks;
 
-const Game = () => {
+const Fields = () => {
   const accounts = useAccounts();
   const [account, setAccount] = useState("");
   const provider = useProvider();
@@ -30,7 +20,6 @@ const Game = () => {
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
 
   const isActive = useIsActive();
-  console.log("isActive", isActive);
   useEffect(() => {
     if (isActive && accounts && accounts.length > 0) {
       setAccount(accounts[0]);
@@ -51,7 +40,7 @@ const Game = () => {
       <Box padding={3}>
         <CreateNewFarm />
         <Typography variant="h4" gutterBottom>
-          Your Farms
+          Your Fields
         </Typography>
 
         <UserFarms onFarmClickedCallback={onFarmClicked} />
@@ -73,4 +62,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default Fields;

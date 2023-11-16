@@ -4,7 +4,7 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { ChickenNFT, ChickenNFTInterface } from "../ChickenNFT";
+import type { ChickenCoop, ChickenCoopInterface } from "../ChickenCoop";
 
 const _abi = [
   {
@@ -16,17 +16,7 @@ const _abi = [
       },
       {
         internalType: "address",
-        name: "_eggsNFT",
-        type: "address",
-      },
-      {
-        internalType: "address payable",
-        name: "_marketingTreasury",
-        type: "address",
-      },
-      {
-        internalType: "address payable",
-        name: "_developmentTreasury",
+        name: "_chickenNFTContract",
         type: "address",
       },
     ],
@@ -180,11 +170,6 @@ const _abi = [
     type: "error",
   },
   {
-    inputs: [],
-    name: "ReentrancyGuardReentrantCall",
-    type: "error",
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -240,108 +225,6 @@ const _abi = [
       {
         indexed: true,
         internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "ChickenCreated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "ChickenDied",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "EggHatched",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "EggMinted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "EggsOwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "nextCycleTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "rewardAmount",
-        type: "uint256",
-      },
-    ],
-    name: "NewCycleStarted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
         name: "previousOwner",
         type: "address",
       },
@@ -353,25 +236,6 @@ const _abi = [
       },
     ],
     name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "RewardWithdrawn",
     type: "event",
   },
   {
@@ -401,7 +265,20 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "CREATION_COST",
+    name: "MAX_LEVEL",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "UPGRADE_COST",
     outputs: [
       {
         internalType: "uint256",
@@ -416,19 +293,18 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "coopId",
         type: "uint256",
       },
-    ],
-    name: "aliveChickens",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "chickenId",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "addChickenToCoop",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -479,11 +355,18 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "coopId",
         type: "uint256",
       },
     ],
-    name: "chickenIndices",
+    name: "collectEggsFromCoop",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "coopLevelCost",
     outputs: [
       {
         internalType: "uint256",
@@ -502,38 +385,8 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "chickens",
+    name: "coops",
     outputs: [
-      {
-        internalType: "uint256",
-        name: "attackPower",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "defensePower",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "intelligencePoints",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "speed",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "birthTime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "nextEggMintedTime",
-        type: "uint256",
-      },
       {
         internalType: "uint256",
         name: "level",
@@ -541,12 +394,26 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "happinessLevel",
+        name: "lastCollected",
         type: "uint256",
       },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "coopId",
+        type: "uint256",
+      },
+    ],
+    name: "doesCoopExist",
+    outputs: [
       {
         internalType: "bool",
-        name: "isDead",
+        name: "",
         type: "bool",
       },
     ],
@@ -555,7 +422,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "cycleDuration",
+    name: "eggCollectionFrequency",
     outputs: [
       {
         internalType: "uint256",
@@ -568,38 +435,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "developmentTreasury",
-    outputs: [
-      {
-        internalType: "address payable",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "eggMintLockTime",
+    name: "eggsPerChicken",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "eggsNFT",
-    outputs: [
-      {
-        internalType: "contract ChickenEggNFT",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -628,51 +469,16 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "tokenId",
+        name: "coopId",
         type: "uint256",
       },
     ],
-    name: "getChickenDetails",
+    name: "getChickensInCoop",
     outputs: [
       {
-        internalType: "uint256",
-        name: "attackPower",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "defensePower",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "intelligencePoints",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "speed",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "level",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "nextEggMintedTime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "birthTime",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "isDead",
-        type: "bool",
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -704,33 +510,15 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "marketingTreasury",
+    name: "mintCost",
     outputs: [
       {
-        internalType: "address payable",
+        internalType: "uint256",
         name: "",
-        type: "address",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-    ],
-    name: "mintEgg",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -748,7 +536,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "nextCycleTimestamp",
+    name: "nextTokenId",
     outputs: [
       {
         internalType: "uint256",
@@ -794,20 +582,19 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: "uint256",
+        name: "coopId",
+        type: "uint256",
       },
-    ],
-    name: "pendingRewards",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "chickenId",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "removeChickenFromCoop",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -882,39 +669,6 @@ const _abi = [
       },
     ],
     name: "setApprovalForAll",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address payable",
-        name: "_developmentTreasury",
-        type: "address",
-      },
-    ],
-    name: "setDevelopmentTreasury",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address payable",
-        name: "_marketingTreasury",
-        type: "address",
-      },
-    ],
-    name: "setMarketingTreasury",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "startNewCycle",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1015,19 +769,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "totalAliveChickens",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "totalSupply",
     outputs: [
       {
@@ -1037,19 +778,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "transferEggsOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -1089,55 +817,36 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "treasury",
-    outputs: [
+    inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "coopId",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_owner",
-        type: "address",
-      },
-    ],
-    name: "walletOfOwner",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
+    name: "upgradeCoopLevel",
+    outputs: [],
+    stateMutability: "payable",
     type: "function",
   },
   {
     inputs: [],
-    name: "withdrawRewards",
+    name: "withdraw",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;
 
-export class ChickenNFT__factory {
+export class ChickenCoop__factory {
   static readonly abi = _abi;
-  static createInterface(): ChickenNFTInterface {
-    return new utils.Interface(_abi) as ChickenNFTInterface;
+  static createInterface(): ChickenCoopInterface {
+    return new utils.Interface(_abi) as ChickenCoopInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): ChickenNFT {
-    return new Contract(address, _abi, signerOrProvider) as ChickenNFT;
+  ): ChickenCoop {
+    return new Contract(address, _abi, signerOrProvider) as ChickenCoop;
   }
 }

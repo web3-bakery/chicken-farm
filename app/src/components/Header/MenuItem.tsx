@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, BoxProps, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export interface MenuItemProps extends BoxProps {
   label: string;
@@ -10,7 +10,7 @@ export interface MenuItemProps extends BoxProps {
 
 const MenuItem: React.FC<MenuItemProps> = (props) => {
   const { label, href } = props;
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   const active = pathname === href;
 

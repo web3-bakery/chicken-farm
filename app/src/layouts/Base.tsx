@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { Box, CssBaseline } from "@mui/material";
 
 import { Header } from "../components/Header";
-import { useRouter } from "next/router";
 import ProviderExample from "../components/web3/components/ProviderExample";
 
 import { NetworkStatusCard } from "../components/web3/components/NetworkStatusCard";
@@ -17,8 +16,6 @@ interface Props {
 const inter = Inter({ subsets: ["latin"] });
 
 const Base: React.FC<Props> = ({ children, hero }) => {
-  const router = useRouter();
-
   return (
     <main className={inter.className}>
       <ProviderExample />

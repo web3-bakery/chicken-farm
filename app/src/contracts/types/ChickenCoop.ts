@@ -28,103 +28,92 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export interface ChickenNFTInterface extends utils.Interface {
+export interface ChickenCoopInterface extends utils.Interface {
   functions: {
-    "CREATION_COST()": FunctionFragment;
-    "aliveChickens(uint256)": FunctionFragment;
+    "MAX_LEVEL()": FunctionFragment;
+    "UPGRADE_COST()": FunctionFragment;
+    "addChickenToCoop(uint256,uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "buy()": FunctionFragment;
-    "chickenIndices(uint256)": FunctionFragment;
-    "chickens(uint256)": FunctionFragment;
-    "cycleDuration()": FunctionFragment;
-    "developmentTreasury()": FunctionFragment;
-    "eggMintLockTime()": FunctionFragment;
-    "eggsNFT()": FunctionFragment;
+    "collectEggsFromCoop(uint256)": FunctionFragment;
+    "coopLevelCost()": FunctionFragment;
+    "coops(uint256)": FunctionFragment;
+    "doesCoopExist(uint256)": FunctionFragment;
+    "eggCollectionFrequency()": FunctionFragment;
+    "eggsPerChicken()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
-    "getChickenDetails(uint256)": FunctionFragment;
+    "getChickensInCoop(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "marketingTreasury()": FunctionFragment;
-    "mintEgg(uint256,address)": FunctionFragment;
+    "mintCost()": FunctionFragment;
     "name()": FunctionFragment;
-    "nextCycleTimestamp()": FunctionFragment;
+    "nextTokenId()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "pendingRewards(address)": FunctionFragment;
+    "removeChickenFromCoop(uint256,uint256)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "setDevelopmentTreasury(address)": FunctionFragment;
-    "setMarketingTreasury(address)": FunctionFragment;
-    "startNewCycle()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenByIndex(uint256)": FunctionFragment;
     "tokenOfOwnerByIndex(address,uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
-    "totalAliveChickens()": FunctionFragment;
     "totalSupply()": FunctionFragment;
-    "transferEggsOwnership(address)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "treasury()": FunctionFragment;
-    "walletOfOwner(address)": FunctionFragment;
-    "withdrawRewards()": FunctionFragment;
+    "upgradeCoopLevel(uint256)": FunctionFragment;
+    "withdraw()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "CREATION_COST"
-      | "aliveChickens"
+      | "MAX_LEVEL"
+      | "UPGRADE_COST"
+      | "addChickenToCoop"
       | "approve"
       | "balanceOf"
       | "buy"
-      | "chickenIndices"
-      | "chickens"
-      | "cycleDuration"
-      | "developmentTreasury"
-      | "eggMintLockTime"
-      | "eggsNFT"
+      | "collectEggsFromCoop"
+      | "coopLevelCost"
+      | "coops"
+      | "doesCoopExist"
+      | "eggCollectionFrequency"
+      | "eggsPerChicken"
       | "getApproved"
-      | "getChickenDetails"
+      | "getChickensInCoop"
       | "isApprovedForAll"
-      | "marketingTreasury"
-      | "mintEgg"
+      | "mintCost"
       | "name"
-      | "nextCycleTimestamp"
+      | "nextTokenId"
       | "owner"
       | "ownerOf"
-      | "pendingRewards"
+      | "removeChickenFromCoop"
       | "renounceOwnership"
       | "safeTransferFrom(address,address,uint256)"
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
-      | "setDevelopmentTreasury"
-      | "setMarketingTreasury"
-      | "startNewCycle"
       | "supportsInterface"
       | "symbol"
       | "tokenByIndex"
       | "tokenOfOwnerByIndex"
       | "tokenURI"
-      | "totalAliveChickens"
       | "totalSupply"
-      | "transferEggsOwnership"
       | "transferFrom"
       | "transferOwnership"
-      | "treasury"
-      | "walletOfOwner"
-      | "withdrawRewards"
+      | "upgradeCoopLevel"
+      | "withdraw"
   ): FunctionFragment;
 
+  encodeFunctionData(functionFragment: "MAX_LEVEL", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "CREATION_COST",
+    functionFragment: "UPGRADE_COST",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "aliveChickens",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: "addChickenToCoop",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "approve",
@@ -136,49 +125,45 @@ export interface ChickenNFTInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "buy", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "chickenIndices",
+    functionFragment: "collectEggsFromCoop",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "chickens",
+    functionFragment: "coopLevelCost",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "coops",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "cycleDuration",
+    functionFragment: "doesCoopExist",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "eggCollectionFrequency",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "developmentTreasury",
+    functionFragment: "eggsPerChicken",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "eggMintLockTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "eggsNFT", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getChickenDetails",
+    functionFragment: "getChickensInCoop",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "marketingTreasury",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "mintEgg",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "mintCost", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "nextCycleTimestamp",
+    functionFragment: "nextTokenId",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -187,8 +172,8 @@ export interface ChickenNFTInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "pendingRewards",
-    values: [PromiseOrValue<string>]
+    functionFragment: "removeChickenFromCoop",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -216,18 +201,6 @@ export interface ChickenNFTInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setDevelopmentTreasury",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMarketingTreasury",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "startNewCycle",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
   ): string;
@@ -245,16 +218,8 @@ export interface ChickenNFTInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "totalAliveChickens",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferEggsOwnership",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
@@ -268,71 +233,67 @@ export interface ChickenNFTInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "walletOfOwner",
-    values: [PromiseOrValue<string>]
+    functionFragment: "upgradeCoopLevel",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawRewards",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: "MAX_LEVEL", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "CREATION_COST",
+    functionFragment: "UPGRADE_COST",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "aliveChickens",
+    functionFragment: "addChickenToCoop",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "chickenIndices",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "chickens", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "cycleDuration",
+    functionFragment: "collectEggsFromCoop",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "developmentTreasury",
+    functionFragment: "coopLevelCost",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "coops", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "doesCoopExist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "eggMintLockTime",
+    functionFragment: "eggCollectionFrequency",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "eggsNFT", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "eggsPerChicken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getChickenDetails",
+    functionFragment: "getChickensInCoop",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "marketingTreasury",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mintEgg", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mintCost", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "nextCycleTimestamp",
+    functionFragment: "nextTokenId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "pendingRewards",
+    functionFragment: "removeChickenFromCoop",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -352,18 +313,6 @@ export interface ChickenNFTInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setDevelopmentTreasury",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMarketingTreasury",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "startNewCycle",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
@@ -378,15 +327,7 @@ export interface ChickenNFTInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "totalAliveChickens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "totalSupply",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferEggsOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -397,40 +338,22 @@ export interface ChickenNFTInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "treasury", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "walletOfOwner",
+    functionFragment: "upgradeCoopLevel",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawRewards",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
-    "ChickenCreated(address,uint256)": EventFragment;
-    "ChickenDied(uint256)": EventFragment;
-    "EggHatched(address,uint256)": EventFragment;
-    "EggMinted(address,uint256)": EventFragment;
-    "EggsOwnershipTransferred(address)": EventFragment;
-    "NewCycleStarted(uint256,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "RewardWithdrawn(address,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ChickenCreated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ChickenDied"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "EggHatched"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "EggMinted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "EggsOwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "NewCycleStarted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RewardWithdrawn"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
@@ -458,68 +381,6 @@ export type ApprovalForAllEvent = TypedEvent<
 
 export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>;
 
-export interface ChickenCreatedEventObject {
-  owner: string;
-  tokenId: BigNumber;
-}
-export type ChickenCreatedEvent = TypedEvent<
-  [string, BigNumber],
-  ChickenCreatedEventObject
->;
-
-export type ChickenCreatedEventFilter = TypedEventFilter<ChickenCreatedEvent>;
-
-export interface ChickenDiedEventObject {
-  tokenId: BigNumber;
-}
-export type ChickenDiedEvent = TypedEvent<[BigNumber], ChickenDiedEventObject>;
-
-export type ChickenDiedEventFilter = TypedEventFilter<ChickenDiedEvent>;
-
-export interface EggHatchedEventObject {
-  owner: string;
-  tokenId: BigNumber;
-}
-export type EggHatchedEvent = TypedEvent<
-  [string, BigNumber],
-  EggHatchedEventObject
->;
-
-export type EggHatchedEventFilter = TypedEventFilter<EggHatchedEvent>;
-
-export interface EggMintedEventObject {
-  owner: string;
-  tokenId: BigNumber;
-}
-export type EggMintedEvent = TypedEvent<
-  [string, BigNumber],
-  EggMintedEventObject
->;
-
-export type EggMintedEventFilter = TypedEventFilter<EggMintedEvent>;
-
-export interface EggsOwnershipTransferredEventObject {
-  newOwner: string;
-}
-export type EggsOwnershipTransferredEvent = TypedEvent<
-  [string],
-  EggsOwnershipTransferredEventObject
->;
-
-export type EggsOwnershipTransferredEventFilter =
-  TypedEventFilter<EggsOwnershipTransferredEvent>;
-
-export interface NewCycleStartedEventObject {
-  nextCycleTimestamp: BigNumber;
-  rewardAmount: BigNumber;
-}
-export type NewCycleStartedEvent = TypedEvent<
-  [BigNumber, BigNumber],
-  NewCycleStartedEventObject
->;
-
-export type NewCycleStartedEventFilter = TypedEventFilter<NewCycleStartedEvent>;
-
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
   newOwner: string;
@@ -531,17 +392,6 @@ export type OwnershipTransferredEvent = TypedEvent<
 
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
-
-export interface RewardWithdrawnEventObject {
-  owner: string;
-  amount: BigNumber;
-}
-export type RewardWithdrawnEvent = TypedEvent<
-  [string, BigNumber],
-  RewardWithdrawnEventObject
->;
-
-export type RewardWithdrawnEventFilter = TypedEventFilter<RewardWithdrawnEvent>;
 
 export interface TransferEventObject {
   from: string;
@@ -555,14 +405,14 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface ChickenNFT extends BaseContract {
-  contractName: "ChickenNFT";
+export interface ChickenCoop extends BaseContract {
+  contractName: "ChickenCoop";
 
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: ChickenNFTInterface;
+  interface: ChickenCoopInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -584,12 +434,15 @@ export interface ChickenNFT extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    CREATION_COST(overrides?: CallOverrides): Promise<[BigNumber]>;
+    MAX_LEVEL(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    aliveChickens(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    UPGRADE_COST(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    addChickenToCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     approve(
       to: PromiseOrValue<string>,
@@ -606,75 +459,38 @@ export interface ChickenNFT extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    chickenIndices(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    collectEggsFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-    chickens(
+    coopLevelCost(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    coops(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean
-      ] & {
-        attackPower: BigNumber;
-        defensePower: BigNumber;
-        intelligencePoints: BigNumber;
-        speed: BigNumber;
-        birthTime: BigNumber;
-        nextEggMintedTime: BigNumber;
-        level: BigNumber;
-        happinessLevel: BigNumber;
-        isDead: boolean;
-      }
+      [BigNumber, BigNumber] & { level: BigNumber; lastCollected: BigNumber }
     >;
 
-    cycleDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
+    doesCoopExist(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    developmentTreasury(overrides?: CallOverrides): Promise<[string]>;
+    eggCollectionFrequency(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    eggMintLockTime(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    eggsNFT(overrides?: CallOverrides): Promise<[string]>;
+    eggsPerChicken(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    getChickenDetails(
-      tokenId: PromiseOrValue<BigNumberish>,
+    getChickensInCoop(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean
-      ] & {
-        attackPower: BigNumber;
-        defensePower: BigNumber;
-        intelligencePoints: BigNumber;
-        speed: BigNumber;
-        level: BigNumber;
-        nextEggMintedTime: BigNumber;
-        birthTime: BigNumber;
-        isDead: boolean;
-      }
-    >;
+    ): Promise<[BigNumber[]]>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -682,17 +498,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    marketingTreasury(overrides?: CallOverrides): Promise<[string]>;
-
-    mintEgg(
-      tokenId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    mintCost(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
-    nextCycleTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+    nextTokenId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -701,10 +511,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    pendingRewards(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    removeChickenFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -728,20 +539,6 @@ export interface ChickenNFT extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setDevelopmentTreasury(
-      _developmentTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setMarketingTreasury(
-      _marketingTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    startNewCycle(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -768,14 +565,7 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    totalAliveChickens(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    transferEggsOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -789,24 +579,25 @@ export interface ChickenNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    treasury(overrides?: CallOverrides): Promise<[BigNumber]>;
+    upgradeCoopLevel(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
-    walletOfOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
-    withdrawRewards(
+    withdraw(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
-  CREATION_COST(overrides?: CallOverrides): Promise<BigNumber>;
+  MAX_LEVEL(overrides?: CallOverrides): Promise<BigNumber>;
 
-  aliveChickens(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  UPGRADE_COST(overrides?: CallOverrides): Promise<BigNumber>;
+
+  addChickenToCoop(
+    coopId: PromiseOrValue<BigNumberish>,
+    chickenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   approve(
     to: PromiseOrValue<string>,
@@ -823,75 +614,38 @@ export interface ChickenNFT extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  chickenIndices(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  collectEggsFromCoop(
+    coopId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
-  chickens(
+  coopLevelCost(overrides?: CallOverrides): Promise<BigNumber>;
+
+  coops(
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
-    [
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      boolean
-    ] & {
-      attackPower: BigNumber;
-      defensePower: BigNumber;
-      intelligencePoints: BigNumber;
-      speed: BigNumber;
-      birthTime: BigNumber;
-      nextEggMintedTime: BigNumber;
-      level: BigNumber;
-      happinessLevel: BigNumber;
-      isDead: boolean;
-    }
+    [BigNumber, BigNumber] & { level: BigNumber; lastCollected: BigNumber }
   >;
 
-  cycleDuration(overrides?: CallOverrides): Promise<BigNumber>;
+  doesCoopExist(
+    coopId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  developmentTreasury(overrides?: CallOverrides): Promise<string>;
+  eggCollectionFrequency(overrides?: CallOverrides): Promise<BigNumber>;
 
-  eggMintLockTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-  eggsNFT(overrides?: CallOverrides): Promise<string>;
+  eggsPerChicken(overrides?: CallOverrides): Promise<BigNumber>;
 
   getApproved(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  getChickenDetails(
-    tokenId: PromiseOrValue<BigNumberish>,
+  getChickensInCoop(
+    coopId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<
-    [
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      boolean
-    ] & {
-      attackPower: BigNumber;
-      defensePower: BigNumber;
-      intelligencePoints: BigNumber;
-      speed: BigNumber;
-      level: BigNumber;
-      nextEggMintedTime: BigNumber;
-      birthTime: BigNumber;
-      isDead: boolean;
-    }
-  >;
+  ): Promise<BigNumber[]>;
 
   isApprovedForAll(
     owner: PromiseOrValue<string>,
@@ -899,17 +653,11 @@ export interface ChickenNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  marketingTreasury(overrides?: CallOverrides): Promise<string>;
-
-  mintEgg(
-    tokenId: PromiseOrValue<BigNumberish>,
-    to: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  mintCost(overrides?: CallOverrides): Promise<BigNumber>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
-  nextCycleTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+  nextTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -918,10 +666,11 @@ export interface ChickenNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  pendingRewards(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  removeChickenFromCoop(
+    coopId: PromiseOrValue<BigNumberish>,
+    chickenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -948,20 +697,6 @@ export interface ChickenNFT extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setDevelopmentTreasury(
-    _developmentTreasury: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setMarketingTreasury(
-    _marketingTreasury: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  startNewCycle(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -985,14 +720,7 @@ export interface ChickenNFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  totalAliveChickens(overrides?: CallOverrides): Promise<BigNumber>;
-
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-  transferEggsOwnership(
-    newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   transferFrom(
     from: PromiseOrValue<string>,
@@ -1006,24 +734,25 @@ export interface ChickenNFT extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  treasury(overrides?: CallOverrides): Promise<BigNumber>;
+  upgradeCoopLevel(
+    coopId: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
-  walletOfOwner(
-    _owner: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
-
-  withdrawRewards(
+  withdraw(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    CREATION_COST(overrides?: CallOverrides): Promise<BigNumber>;
+    MAX_LEVEL(overrides?: CallOverrides): Promise<BigNumber>;
 
-    aliveChickens(
-      arg0: PromiseOrValue<BigNumberish>,
+    UPGRADE_COST(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addChickenToCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
     approve(
       to: PromiseOrValue<string>,
@@ -1038,75 +767,38 @@ export interface ChickenNFT extends BaseContract {
 
     buy(overrides?: CallOverrides): Promise<void>;
 
-    chickenIndices(
-      arg0: PromiseOrValue<BigNumberish>,
+    collectEggsFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
-    chickens(
+    coopLevelCost(overrides?: CallOverrides): Promise<BigNumber>;
+
+    coops(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean
-      ] & {
-        attackPower: BigNumber;
-        defensePower: BigNumber;
-        intelligencePoints: BigNumber;
-        speed: BigNumber;
-        birthTime: BigNumber;
-        nextEggMintedTime: BigNumber;
-        level: BigNumber;
-        happinessLevel: BigNumber;
-        isDead: boolean;
-      }
+      [BigNumber, BigNumber] & { level: BigNumber; lastCollected: BigNumber }
     >;
 
-    cycleDuration(overrides?: CallOverrides): Promise<BigNumber>;
+    doesCoopExist(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    developmentTreasury(overrides?: CallOverrides): Promise<string>;
+    eggCollectionFrequency(overrides?: CallOverrides): Promise<BigNumber>;
 
-    eggMintLockTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    eggsNFT(overrides?: CallOverrides): Promise<string>;
+    eggsPerChicken(overrides?: CallOverrides): Promise<BigNumber>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    getChickenDetails(
-      tokenId: PromiseOrValue<BigNumberish>,
+    getChickensInCoop(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean
-      ] & {
-        attackPower: BigNumber;
-        defensePower: BigNumber;
-        intelligencePoints: BigNumber;
-        speed: BigNumber;
-        level: BigNumber;
-        nextEggMintedTime: BigNumber;
-        birthTime: BigNumber;
-        isDead: boolean;
-      }
-    >;
+    ): Promise<BigNumber[]>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -1114,17 +806,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    marketingTreasury(overrides?: CallOverrides): Promise<string>;
-
-    mintEgg(
-      tokenId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    mintCost(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
-    nextCycleTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    nextTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -1133,10 +819,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    pendingRewards(
-      arg0: PromiseOrValue<string>,
+    removeChickenFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -1161,18 +848,6 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setDevelopmentTreasury(
-      _developmentTreasury: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setMarketingTreasury(
-      _marketingTreasury: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    startNewCycle(overrides?: CallOverrides): Promise<void>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1196,14 +871,7 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    totalAliveChickens(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferEggsOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -1217,14 +885,12 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    treasury(overrides?: CallOverrides): Promise<BigNumber>;
-
-    walletOfOwner(
-      _owner: PromiseOrValue<string>,
+    upgradeCoopLevel(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    ): Promise<void>;
 
-    withdrawRewards(overrides?: CallOverrides): Promise<void>;
+    withdraw(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -1250,52 +916,6 @@ export interface ChickenNFT extends BaseContract {
       approved?: null
     ): ApprovalForAllEventFilter;
 
-    "ChickenCreated(address,uint256)"(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): ChickenCreatedEventFilter;
-    ChickenCreated(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): ChickenCreatedEventFilter;
-
-    "ChickenDied(uint256)"(tokenId?: null): ChickenDiedEventFilter;
-    ChickenDied(tokenId?: null): ChickenDiedEventFilter;
-
-    "EggHatched(address,uint256)"(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): EggHatchedEventFilter;
-    EggHatched(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): EggHatchedEventFilter;
-
-    "EggMinted(address,uint256)"(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): EggMintedEventFilter;
-    EggMinted(
-      owner?: PromiseOrValue<string> | null,
-      tokenId?: null
-    ): EggMintedEventFilter;
-
-    "EggsOwnershipTransferred(address)"(
-      newOwner?: PromiseOrValue<string> | null
-    ): EggsOwnershipTransferredEventFilter;
-    EggsOwnershipTransferred(
-      newOwner?: PromiseOrValue<string> | null
-    ): EggsOwnershipTransferredEventFilter;
-
-    "NewCycleStarted(uint256,uint256)"(
-      nextCycleTimestamp?: null,
-      rewardAmount?: null
-    ): NewCycleStartedEventFilter;
-    NewCycleStarted(
-      nextCycleTimestamp?: null,
-      rewardAmount?: null
-    ): NewCycleStartedEventFilter;
-
     "OwnershipTransferred(address,address)"(
       previousOwner?: PromiseOrValue<string> | null,
       newOwner?: PromiseOrValue<string> | null
@@ -1304,15 +924,6 @@ export interface ChickenNFT extends BaseContract {
       previousOwner?: PromiseOrValue<string> | null,
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
-
-    "RewardWithdrawn(address,uint256)"(
-      owner?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RewardWithdrawnEventFilter;
-    RewardWithdrawn(
-      owner?: PromiseOrValue<string> | null,
-      amount?: null
-    ): RewardWithdrawnEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: PromiseOrValue<string> | null,
@@ -1327,11 +938,14 @@ export interface ChickenNFT extends BaseContract {
   };
 
   estimateGas: {
-    CREATION_COST(overrides?: CallOverrides): Promise<BigNumber>;
+    MAX_LEVEL(overrides?: CallOverrides): Promise<BigNumber>;
 
-    aliveChickens(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    UPGRADE_COST(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addChickenToCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     approve(
@@ -1349,31 +963,34 @@ export interface ChickenNFT extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    chickenIndices(
+    collectEggsFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    coopLevelCost(overrides?: CallOverrides): Promise<BigNumber>;
+
+    coops(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    chickens(
-      arg0: PromiseOrValue<BigNumberish>,
+    doesCoopExist(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    cycleDuration(overrides?: CallOverrides): Promise<BigNumber>;
+    eggCollectionFrequency(overrides?: CallOverrides): Promise<BigNumber>;
 
-    developmentTreasury(overrides?: CallOverrides): Promise<BigNumber>;
-
-    eggMintLockTime(overrides?: CallOverrides): Promise<BigNumber>;
-
-    eggsNFT(overrides?: CallOverrides): Promise<BigNumber>;
+    eggsPerChicken(overrides?: CallOverrides): Promise<BigNumber>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getChickenDetails(
-      tokenId: PromiseOrValue<BigNumberish>,
+    getChickensInCoop(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1383,17 +1000,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    marketingTreasury(overrides?: CallOverrides): Promise<BigNumber>;
-
-    mintEgg(
-      tokenId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    mintCost(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
-    nextCycleTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    nextTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1402,9 +1013,10 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    pendingRewards(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
+    removeChickenFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     renounceOwnership(
@@ -1429,20 +1041,6 @@ export interface ChickenNFT extends BaseContract {
     setApprovalForAll(
       operator: PromiseOrValue<string>,
       approved: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setDevelopmentTreasury(
-      _developmentTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    setMarketingTreasury(
-      _marketingTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    startNewCycle(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1469,14 +1067,7 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    totalAliveChickens(overrides?: CallOverrides): Promise<BigNumber>;
-
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferEggsOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -1490,24 +1081,25 @@ export interface ChickenNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    treasury(overrides?: CallOverrides): Promise<BigNumber>;
-
-    walletOfOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
+    upgradeCoopLevel(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    withdrawRewards(
+    withdraw(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    CREATION_COST(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    MAX_LEVEL(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    aliveChickens(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    UPGRADE_COST(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    addChickenToCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     approve(
@@ -1525,33 +1117,36 @@ export interface ChickenNFT extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    chickenIndices(
+    collectEggsFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    coopLevelCost(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    coops(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    chickens(
-      arg0: PromiseOrValue<BigNumberish>,
+    doesCoopExist(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    cycleDuration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    developmentTreasury(
+    eggCollectionFrequency(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    eggMintLockTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    eggsNFT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    eggsPerChicken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getChickenDetails(
-      tokenId: PromiseOrValue<BigNumberish>,
+    getChickensInCoop(
+      coopId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1561,19 +1156,11 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    marketingTreasury(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    mintEgg(
-      tokenId: PromiseOrValue<BigNumberish>,
-      to: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    mintCost(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    nextCycleTimestamp(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    nextTokenId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1582,9 +1169,10 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    pendingRewards(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
+    removeChickenFromCoop(
+      coopId: PromiseOrValue<BigNumberish>,
+      chickenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
@@ -1612,20 +1200,6 @@ export interface ChickenNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setDevelopmentTreasury(
-      _developmentTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setMarketingTreasury(
-      _marketingTreasury: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    startNewCycle(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1649,16 +1223,7 @@ export interface ChickenNFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    totalAliveChickens(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    transferEggsOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
 
     transferFrom(
       from: PromiseOrValue<string>,
@@ -1672,14 +1237,12 @@ export interface ChickenNFT extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    treasury(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    walletOfOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
+    upgradeCoopLevel(
+      coopId: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    withdrawRewards(
+    withdraw(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
