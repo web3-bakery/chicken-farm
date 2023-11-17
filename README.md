@@ -77,5 +77,12 @@ npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
-npx hardhat run scripts/deploy.ts
+npx hardhat run scripts/deploy.ts --network localhost
 ```
+
+## How to get some shimmer locally?
+
+To access an account with enought local shimmer to actually test the application follow the steps below:
+
+1. Run `npx hardhat node`. You should see a section listing accounts. Copy the 2nd account's private key.
+2. Go to you browser and open metamask. Create a new account via "import account" and paste your private key.
