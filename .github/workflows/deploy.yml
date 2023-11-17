@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "BASE_PATH: $BASE_PATH"
       - name: Build page
-        run: cd app && yarn prepare-deploy
+        run: cd app && yarn build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:

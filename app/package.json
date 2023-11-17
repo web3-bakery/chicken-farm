@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "compile-contract-types": "typechain --target ethers-v5 --out-dir ./src/contracts/types --discriminate-types './src/contracts/*.json'",
-    "postinstall": "npm run compile-contract-types",
-    "prepare-deploy": "next build && next export"
+    "postinstall": "npm run compile-contract-types"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
