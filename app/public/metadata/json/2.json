@@ -1,0 +1,11 @@
+{
+  "name": "Brown Egg",
+  "description": "A richly colored brown egg, known for its natural look.",
+  "image": "https://example.com/images/brown-egg.png",
+  "attributes": [
+    {
+      "trait_type": "Color",
+      "value": "Brown"
+    }
+  ]
+}

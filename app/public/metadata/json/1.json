@@ -1,0 +1,11 @@
+{
+  "name": "White Egg",
+  "description": "A pristine white egg from the healthiest chickens on the farm.",
+  "image": "https://example.com/images/white-egg.png",
+  "attributes": [
+    {
+      "trait_type": "Color",
+      "value": "White"
+    }
+  ]
+}

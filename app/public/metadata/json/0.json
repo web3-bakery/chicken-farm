@@ -1,0 +1,11 @@
+{
+  "name": "Golden Egg",
+  "description": "A rare and valuable golden egg, sparkling with potential.",
+  "image": "https://example.com/images/golden-egg.png",
+  "attributes": [
+    {
+      "trait_type": "Color",
+      "value": "Golden"
+    }
+  ]
+}
