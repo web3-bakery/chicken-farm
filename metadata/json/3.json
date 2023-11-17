@@ -1,0 +1,11 @@
+{
+  "name": "Green Egg",
+  "description": "An unusual green egg, a special find on the farm.",
+  "image": "https://example.com/images/green-egg.png",
+  "attributes": [
+    {
+      "trait_type": "Color",
+      "value": "Green"
+    }
+  ]
+}
