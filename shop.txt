@@ -1,6 +1,6 @@
 1:HL["/chicken-farm/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:HL["/chicken-farm/_next/static/css/7762f875463e10b2.css","style",{"crossOrigin":""}]
-0:["dw440tYdBOuOHXnjhZiEl",[[["",{"children":["shop",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],"$L3",[[["$","link","0",{"rel":"stylesheet","href":"/chicken-farm/_next/static/css/7762f875463e10b2.css","precedence":"next","crossOrigin":""}]],"$L4"]]]]
+0:["uxgR5hU7TohqWbBfHgoVM",[[["",{"children":["shop",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],"$L3",[[["$","link","0",{"rel":"stylesheet","href":"/chicken-farm/_next/static/css/7762f875463e10b2.css","precedence":"next","crossOrigin":""}]],"$L4"]]]]
 5:HL["/chicken-farm/_next/static/css/0a34742fc8427b23.css","style",{"crossOrigin":""}]
 6:I[5714,["612","static/chunks/612-80f51f45b11c7a9e.js","529","static/chunks/529-c27b1d178b9304cb.js","336","static/chunks/336-f79bee0d7079ef16.js","185","static/chunks/app/layout-fee3df5ea5579dbe.js"],""]
 7:I[56954,[],""]
