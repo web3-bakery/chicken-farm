@@ -2,36 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
-import {
-  Box,
-  Typography,
-  Container,
-  Button,
-  CardContent,
-  CardActions,
-  Card,
-  CardMedia,
-} from "@mui/material";
+import { Box, Typography, Container, Button } from "@mui/material";
 
-import Base from "../../../../layouts/Base";
-import { hooks } from "../../../../components/web3/connectors/metaMask";
-import useChickenCoopDetail from "../../../../hooks/useChickenCoopDetail";
-import AddChicken from "../../../../components/chicken-coop/AddChicken";
-import ChickenCard from "../../../../components/farm/ChickenCard";
-import useContract from "../../../../hooks/useContract";
-import ChickenCoop_CONTRACT from "../../../../contracts/ChickenCoop.json";
+import Base from "../../layouts/Base";
+import { hooks } from "../web3/connectors/metaMask";
+import useChickenCoopDetail from "../../hooks/useChickenCoopDetail";
+import AddChicken from "./AddChicken";
+import ChickenCard from "../farm/ChickenCard";
+import useContract from "../../hooks/useContract";
+import ChickenCoop_CONTRACT from "../../contracts/ChickenCoop.json";
 
 const { useAccounts, useProvider } = hooks;
 
 type Props = {
-  params: {
-    id: string;
-  };
+  id: string;
 };
 
-const ChickenCoop = ({ params }: Props) => {
-  const { id } = params;
+const ChickenCoopPage = ({ id }: Props) => {
+  // const { id } = params;
+
+  console.log("id123", id);
 
   const accounts = useAccounts();
   const provider = useProvider();
@@ -140,4 +130,4 @@ const ChickenCoop = ({ params }: Props) => {
   );
 };
 
-export default ChickenCoop;
+export default ChickenCoopPage;

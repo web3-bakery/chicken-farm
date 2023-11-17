@@ -30,7 +30,7 @@ const ChickenCoops: React.FC<Props> = (props) => {
         console.log("clicked", tokenId);
       }}
     >
-      <Link href={`/farm/chicken-coop/${tokenId}`}>
+      <Link href={`/farm/chicken-coop?id=${tokenId}`}>
         {isLoading ? <Skeleton variant="text" /> : null}
 
         {isError ? <div>Error</div> : null}
