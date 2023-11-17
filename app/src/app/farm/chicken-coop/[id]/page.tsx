@@ -3,7 +3,16 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
-import { Box, Typography, Container, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Container,
+  Button,
+  CardContent,
+  CardActions,
+  Card,
+  CardMedia,
+} from "@mui/material";
 
 import Base from "../../../../layouts/Base";
 import { hooks } from "../../../../components/web3/connectors/metaMask";

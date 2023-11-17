@@ -25,13 +25,21 @@ const ChickenCoops: React.FC<Props> = (props) => {
       ) : null}
 
       {data && data.length > 0 ? (
-        <>
+        <Box
+          sx={{
+            display: "flex",
+
+            alignItems: "flex-start",
+            gap: 2,
+            width: "100%",
+          }}
+        >
           {data.map((tokenId) => (
             <div key={tokenId.toString()}>
               <ChickenCoopCard tokenId={Number(tokenId)} />
             </div>
           ))}
-        </>
+        </Box>
       ) : null}
     </Box>
   );
