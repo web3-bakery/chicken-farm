@@ -34,10 +34,17 @@ async function main() {
 
   console.log(`ChickenCoop deployed to ${chickenCoop.target}`);
 
+  const farmItems = await ethers.deployContract("FarmItems", [owner.address]);
+
+  await farmItems.waitForDeployment();
+
+  console.log(`FarmItems deployed to ${farmItems.target}`);
+
   copyContractArtifacts({
     ChickenEggNFT: eggs.target,
     ChickenNFT: chickens.target,
     ChickenCoop: chickenCoop.target,
+    FarmItems: farmItems.target,
     // Add more contracts here as needed
   });
 }

@@ -9,7 +9,12 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 contract FarmItems is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {
     constructor(
         address initialOwner
-    ) ERC1155("https://example.com/api/item/{id}.json") Ownable(initialOwner) {}
+    )
+        ERC1155(
+            "https://web3-farm.github.io/chicken-farm/metadata/json/{id}.json"
+        )
+        Ownable(initialOwner)
+    {}
 
     string public constant name = "Farm Items";
     string public constant symbol = "FarmItem";
